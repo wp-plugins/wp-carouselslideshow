@@ -1,0 +1,75 @@
+=== Carousel slideshow ===
+
+Contributors: wpslideshow.com
+Author URI: http://wpslideshow.com/carousel-slideshow/
+Tags: carousel slideshow, flash slideshow
+Requires at least: 3.0
+Tested up to: 3.2.1
+Stable tag: trunk
+
+Carousel slideshow is a plugin that allows you to display a slideshow on your website.
+
+== Description ==
+
+Carousel slideshow is a plugin that allows you to display a slideshow on your website.It is also allows to use it as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
+
+**Features**
+
+* Customizable slideshow main_image height & width
+* Customizable slideshow background color
+* Customizable autoslide option
+* Customizable slideshow transition speed
+* Customizable Transition type     
+* Customizable options for Description 
+* Customizable corner readious option
+
+Requirements/Restrictions:
+-------------------------
+ * Works with Wordpress 3.0, WPMU (Wordpress 3.0+ is highly recommended)
+ * PHP5 
+
+== Installation ==
+
+1. Install automatically through the `Plugins`, `Add New` menu in WordPress, or upload the `wp-carousel-slideshow` folder to the `/wp-content/plugins/` directory. 
+
+2. Activate the plugin through the `Plugins` menu in WordPress. Look for the "Carousel slideshow Settings" link  on left side menu to configure the Options. 
+
+3. Click on "Carousel slideshow Settings" on leftside menu, you can find "make config.xml" on right side panel bottom location, click on it. 
+
+4. Add the shortcode `[carousel_slideshow]` in a Page, Post. Here is how: Log into your blog admin dashboard. Click `Pages`, click `Add New`, add a title to your page, enter the shortcode `[carousel_slideshow]` in the page, click `Publish`.
+
+5. Please make "wp-content/plugins/wp-carouselslideshow/images" directories writeable(755)
+
+6. Still if you have problems in using this plugin please contact at addons@wpslideshow.com
+
+
+== Screenshots ==
+
+1. screenshot-1.jpg is the front-end slideshow page.
+
+2. screenshot-2.jpg is the  tab on the `Admin Plugins` page.
+
+3. screenshot-3.jpg is the settings of the slideshow page.
+
+4. screenshot-4.jpg adding the shortcode `[carousel_slideshow]` in a Page.
+
+For working demo : http://wpslideshow.com/carousel-slideshow/
+
+== How to use it as a widget ==
+
+After installing "wp-carouselslideshow" plugin in your theme just follow below instructions.
+
+1. Go to Appearance > Widgets, we can simply drag & drop "Carousel Slideshow" widget where ever you want to display it.
+
+2. To configure your slideshow settings click on  "Carousel slideshow Settings" on the leftside, and edit settings and click on "make config.xml" button.
+
+3. If you want display this widget on any certain pages of your site just you need to install 
+"widget-context" (http://wordpress.org/extend/plugins/widget-context/) plugin . 
+
+
+== How to use plug-in in the template code ==
+
+After installing "wp-carouselslideshow" plugin, follow the instructions below.
+
+1. Open your theme php file and add the line <?php echo do_shortcode('[carousel_slideshow]');?> where ever you like to show the slide show.
+
