@@ -47,11 +47,11 @@ Requirements/Restrictions:
 
 1. screenshot-1.jpg is the front-end slideshow page.
 
-2. screenshot-2.jpg is the  tab on the `Admin Plugins` page.
+2. screenshot-2.gif is the  tab on the `Admin Plugins` page.
 
-3. screenshot-3.jpg is the settings of the slideshow page.
+3. screenshot-3.gif is the settings of the slideshow page.
 
-4. screenshot-4.jpg adding the shortcode `[carousel_slideshow]` in a Page.
+4. screenshot-4.gif adding the shortcode `[carousel_slideshow]` in a Page.
 
 For working demo : http://wpslideshow.com/carousel-slideshow/
 
