@@ -28,6 +28,8 @@ Requirements/Restrictions:
  * Works with Wordpress 3.0, WPMU (Wordpress 3.0+ is highly recommended)
  * PHP5 
 
+For working demo : http://wpslideshow.com/carousel-slideshow/
+
 == Installation ==
 
 1. Install automatically through the `Plugins`, `Add New` menu in WordPress, or upload the `wp-carousel-slideshow` folder to the `/wp-content/plugins/` directory. 
@@ -52,8 +54,6 @@ Requirements/Restrictions:
 3. screenshot-3.gif is the settings of the slideshow page.
 
 4. screenshot-4.gif adding the shortcode `[carousel_slideshow]` in a Page.
-
-For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == How to use it as a widget ==
 
