@@ -44,6 +44,7 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 6. Still if you have problems in using this plugin please contact at addons@wpslideshow.com
 
+For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == Screenshots ==
 
@@ -54,6 +55,7 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 3. screenshot-3.gif is the settings of the slideshow page.
 
 4. screenshot-4.gif adding the shortcode `[carousel_slideshow]` in a Page.
+
 
 == How to use it as a widget ==
 
