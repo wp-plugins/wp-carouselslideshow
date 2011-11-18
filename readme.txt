@@ -40,9 +40,7 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 4. Add the shortcode `[carousel_slideshow]` in a Page, Post. Here is how: Log into your blog admin dashboard. Click `Pages`, click `Add New`, add a title to your page, enter the shortcode `[carousel_slideshow]` in the page, click `Publish`.
 
-5. Please make "wp-content/plugins/wp-carouselslideshow/images" directories writeable(755)
-
-6. Still if you have problems in using this plugin please contact at addons@wpslideshow.com
+5. Still if you facing any issues in using this plugin please contact our support at addons@wpslideshow.com
 
 For working demo : http://wpslideshow.com/carousel-slideshow/
 
@@ -73,5 +71,4 @@ After installing "wp-carouselslideshow" plugin in your theme just follow below i
 
 After installing "wp-carouselslideshow" plugin, follow the instructions below.
 
-1. Open your theme php file and add the line <?php echo do_shortcode('[carousel_slideshow]');?> where ever you like to show the slide show.
-
+1. Open your theme php file and add the line http://wpslideshow.com/shortcodes/carousel/carousel_codesnippet.png where ever you like to show the slide show.
