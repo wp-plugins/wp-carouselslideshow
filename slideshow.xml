@@ -28,6 +28,29 @@
 			<alpha>50</alpha>
 		</progress>
 	</settings>
+	<snow_effect 	
+		type="1"
+		
+		minimumSize="0.7"
+		maximumSize="1.1"
+		
+		minimumSpeedY="2"
+		maximumSpeedY="4"
+		
+		minimumSpeedX="0"
+		maximumSpeedX="0"
+		
+		numOfParticles="120"
+		
+		minimumRotation="0"
+		maximumRotation="0"
+		
+		minimumAlpha="1"
+		maximumAlpha="1"
+		
+		minimumBlur="0"
+		maximumBlur="6"
+	/>
 	<pictures>
 		<picture src="wp-content/plugins/wp-carouselslideshow/images/sample_image_1.png" scale="true">
 			<link target="_blank">http://wpslideshow.com/</link>

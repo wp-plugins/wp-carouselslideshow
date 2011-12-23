@@ -4,7 +4,7 @@ Contributors: wpslideshow.com
 Author URI: http://wpslideshow.com/carousel-slideshow/
 Tags: carousel slideshow, flash slideshow
 Requires at least: 3.0
-Tested up to: 3.2.1
+Tested up to: 3.3
 Stable tag: trunk
 
 Carousel slideshow is a plugin that allows you to display a slideshow on your website.
@@ -14,7 +14,7 @@ Carousel slideshow is a plugin that allows you to display a slideshow on your we
 Carousel slideshow is a plugin that allows you to display a slideshow on your website.It is also allows to use it as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
 
 **Features**
-
+* Customizable Enable/Disable Snow Effect on the slideshow
 * Customizable slideshow main_image height & width
 * Customizable slideshow background color
 * Customizable autoslide option
@@ -36,7 +36,7 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 2. Activate the plugin through the `Plugins` menu in WordPress. Look for the "Carousel slideshow Settings" link  on left side menu to configure the Options. 
 
-3. Click on "Carousel slideshow Settings" on leftside menu, you can find "make config.xml" on right side panel bottom location, click on it. 
+3. Click on `Carousel slideshow Settings` on leftside menu, you can find "make config.xml" on right side panel bottom location, click on it. 
 
 4. Add the shortcode `[carousel_slideshow]` in a Page, Post. Here is how: Log into your blog admin dashboard. Click `Pages`, click `Add New`, add a title to your page, enter the shortcode `[carousel_slideshow]` in the page, click `Publish`.
 
@@ -57,11 +57,11 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == How to use it as a widget ==
 
-After installing "wp-carouselslideshow" plugin in your theme just follow below instructions.
+After installing `wp-carouselslideshow` plugin in your theme just follow below instructions.
 
-1. Go to Appearance > Widgets, we can simply drag & drop "Carousel Slideshow" widget where ever you want to display it.
+1. Go to Appearance > Widgets, we can simply drag & drop `Carousel Slideshow` widget where ever you want to display it.
 
-2. To configure your slideshow settings click on  "Carousel slideshow Settings" on the leftside, and edit settings and click on "make config.xml" button.
+2. To configure your slideshow settings click on  `Carousel slideshow Settings` on the leftside, and edit settings and click on `make config.xml` button.
 
 3. If you want display this widget on any certain pages of your site just you need to install 
 "widget-context" (http://wordpress.org/extend/plugins/widget-context/) plugin . 
@@ -69,6 +69,13 @@ After installing "wp-carouselslideshow" plugin in your theme just follow below i
 
 == How to use plug-in in the template code ==
 
-After installing "wp-carouselslideshow" plugin, follow the instructions below.
+After install `wp-carouselslideshow` plugin, follow the instructions below.
 
-1. Open your theme php file and add the line http://wpslideshow.com/shortcodes/carousel/carousel_codesnippet.png where ever you like to show the slide show.
+1. Open your theme php file and add the line <code><?php echo do_shortcode('[carousel_slideshow]');?> </code> where ever you like to show the slide show.
+
+== change log ==
+1.0
+ Initial released version
+2.0
+Added customizable option for enable/disbale snow effect on the slidehsow.
+
