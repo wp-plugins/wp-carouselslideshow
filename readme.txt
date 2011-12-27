@@ -78,4 +78,6 @@ After install `wp-carouselslideshow` plugin, follow the instructions below.
  Initial released version
 2.0
 Added customizable option for enable/disbale snow effect on the slidehsow.
+3.0
+fix enable/disable description on the slideshow.
 

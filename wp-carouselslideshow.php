@@ -1,14 +1,14 @@
 <?php
 /**
  * @package Carousel Slideshow for WordPress
- * @version 1.2
+ * @version 3.0
  */
 /*
 Plugin Name: wp-carouselslideshow
 Plugin URI: http://wpslideshow.com/carousel-slideshow/
-Description: Carousel slideshow is a plugin that allows you to display a slideshow on your website.It is also allow us to use it as a widget. You can also enable this Blaze slideshow on your wordpress site by placing code snippet in your template php file.
+Description: Carousel slideshow is a plugin that allows you to display a slideshow on your website.It is also allow us to use it as a widget.You can also enable this Carousel slideshow on your wordpress site by placing code snippet in your template php file.
 Author: wpslideshow.com
-Version: 1.2
+Version: 3.0
 Author URI: http://wpslideshow.com 
 */
 
@@ -106,6 +106,7 @@ preg_match("/\?[^=]*=\d+/",$temp,$b);
 		<transition_speed>".$_POST["transition_speed"]."</transition_speed>
 		<transition_type>".$_POST["transition_type"]."</transition_type>
 		<description>
+		<show>".$_POST["show_desc"]."</show>
 			<location >".$_POST["desc_position"]."</location>
 			<background>".$_POST["desc_bgcolor"]."</background>
 			<alpha>".$_POST["desc_bgcoloralpha"]."</alpha>
@@ -233,7 +234,9 @@ Transition Speed: <input type="text" name="transition_speed" value="<?php echo $
 Transition Type: <select name="transition_type">
 <option value="easeOut" <?php if($temp["transition_type"]=="easeOut")echo "selected=\"selected\""; ?>>EaseOut</option>
 <option value="easeOutBounce" <?php if($temp["transition_type"]=="easeOutBounce")echo "selected=\"selected\""; ?>>EaseOut Bounce</option></select><br />
-
+Show Description: <select name="show_desc">
+<option value="true" <?php if($temp["show_desc"]=="true")echo "selected=\"selected\""; ?>>Yes</option>
+<option value="false" <?php if($temp["show_desc"]=="false")echo "selected=\"selected\""; ?>>No</option></select><br />
 Description Position: <select name="desc_position">
 <option value="top" <?php if($temp["desc_position"]=="top")echo "selected=\"selected\""; ?>>Top</option>
 <option value="bottom" <?php if($temp["desc_position"]=="bottom")echo "selected=\"selected\""; ?>>Bottom</option></select><br />
@@ -455,6 +458,7 @@ $a["title_autohide"]=$arrXml["settings"]["autoslide"]["@attributes"]["on"];
 $a["auto_slidetime"]=$arrXml["settings"]["autoslide"]["@attributes"]["time"];
 $a["transition_speed"]=$arrXml["settings"]["transition_speed"];
 $a["transition_type"]=$arrXml["settings"]["transition_type"];
+$a["show_desc"]=$arrXml["settings"]["description"]["show"];
 $a["desc_position"]=$arrXml["settings"]["description"]["location"];
 $a["desc_bgcolor"]=$arrXml["settings"]["description"]["background"];
 $a["desc_bgcoloralpha"]=$arrXml["settings"]["description"]["alpha"];
