@@ -6,7 +6,7 @@
 /*
 Plugin Name: wp-carouselslideshow
 Plugin URI: http://wpslideshow.com/carousel-slideshow/
-Description: Carousel slideshow is a plugin that allows you to display a slideshow on your website.It is also allow us to use it as a widget.You can also enable this Carousel slideshow on your wordpress site by placing code snippet in your template php file.
+Description: Carousel slideshow is a plugin that used to display slideshow on your website.It is also allow us to use it as a widget.You can also enable this Carousel slideshow on your wordpress site by placing code snippet in your template php file.
 Author: wpslideshow.com
 Version: 3.0
 Author URI: http://wpslideshow.com 
@@ -106,7 +106,7 @@ preg_match("/\?[^=]*=\d+/",$temp,$b);
 		<transition_speed>".$_POST["transition_speed"]."</transition_speed>
 		<transition_type>".$_POST["transition_type"]."</transition_type>
 		<description>
-		<show>".$_POST["show_desc"]."</show>
+			<show>".$_POST["show_desc"]."</show>
 			<location >".$_POST["desc_position"]."</location>
 			<background>".$_POST["desc_bgcolor"]."</background>
 			<alpha>".$_POST["desc_bgcoloralpha"]."</alpha>
@@ -129,17 +129,17 @@ preg_match("/\?[^=]*=\d+/",$temp,$b);
 		
 		minimumSize=\"".$_POST["min_particle_size"]."\"
 		maximumSize=\"".$_POST["max_particle_size"]."\" 		
-		minimumSpeedY=\"".$_POST["min_particle_yspeed"]."\"
-		maximumSpeedY=\"".$_POST["max_particle_yspeed"]."\"		
-		minimumSpeedX=\"".$_POST["min_particle_xspeed"]."\"
-		maximumSpeedX=\"".$_POST["max_particle_xspeed"]."\"		
-		numOfParticles=\"".$_POST["noof_particles"]."\"
+		minimumSpeedY=\"2\"
+		maximumSpeedY=\"4\"		
+		minimumSpeedX=\"0\"
+		maximumSpeedX=\"0\"		
+		numOfParticles=\"125\"
 		minimumRotation=\"0\"
 		maximumRotation=\"0\"		
-		minimumAlpha=\"".$_POST["min_particle_alpha"]."\"
-		maximumAlpha=\"".$_POST["max_particle_alpha"]."\"
-		minimumBlur=\"".$_POST["min_particle_blur"]."\"
-		maximumBlur=\"".$_POST["max_particle_blur"]."\"
+		minimumAlpha=\"1\"
+		maximumAlpha=\"1\"
+		minimumBlur=\"0\"
+		maximumBlur=\"6\"
 	/>
 	<pictures>";
 
@@ -284,52 +284,6 @@ Snow Effect Type: <select name="snoweffect_type">
 Small particle size: <input type="text" name="min_particle_size" value="<?php echo $temp["min_particle_size"];?>" /><br />
 
 Big particle size: <input type="text" name="max_particle_size" value="<?php echo $temp["max_particle_size"];?>" /><br />
-
-Small particle Y-speed: <input type="text" name="min_particle_yspeed" value="<?php echo $temp["min_particle_yspeed"];?>" /><br />
-
-Big particle Y-speed: <input type="text" name="max_particle_size" value="<?php echo $temp["max_particle_size"];?>" /><br />
-
-Small particle X-speed: <input type="text" name="min_particle_xspeed" value="<?php echo $temp["min_particle_xspeed"];?>" /><br />
-
-Big particle X-speed: <input type="text" name="max_particle_xspeed" value="<?php echo $temp["max_particle_xspeed"];?>" /><br />
-
-Number of particles: <input type="text" name="noof_particles" value="<?php echo $temp["noof_particles"];?>" /><br />
-
-<!--Small particle rotation: <input type="text" name="min_particle_rotation" value="<?php echo $temp["min_particle_rotation"];?>" /><br />
-
-Big particle rotation: <input type="text" name="max_particle_rotation" value="<?php echo $temp["max_particle_rotation"];?>" /><br />-->
-
-Small Particle alpha: <select name="min_particle_alpha">
-<option value="0" <?php if($temp["min_particle_alpha"]=="0")echo "selected=\"selected\""; ?>>0</option>
-<option value="0.1" <?php if($temp["min_particle_alpha"]=="0.1")echo "selected=\"selected\""; ?>>0.1</option>
-<option value="0.2" <?php if($temp["min_particle_alpha"]=="0.2")echo "selected=\"selected\""; ?>>0.2</option>
-<option value="0.3" <?php if($temp["min_particle_alpha"]=="0.3")echo "selected=\"selected\""; ?>>0.3</option>
-<option value="0.4" <?php if($temp["min_particle_alpha"]=="0.4")echo "selected=\"selected\""; ?>>0.4</option>
-<option value="0.5" <?php if($temp["min_particle_alpha"]=="0.5")echo "selected=\"selected\""; ?>>0.5</option>
-<option value="0.6" <?php if($temp["min_particle_alpha"]=="0.6")echo "selected=\"selected\""; ?>>0.6</option>
-<option value="0.7" <?php if($temp["min_particle_alpha"]=="0.7")echo "selected=\"selected\""; ?>>0.7</option>
-<option value="0.8" <?php if($temp["min_particle_alpha"]=="0.8")echo "selected=\"selected\""; ?>>0.8</option>
-<option value="0.9" <?php if($temp["min_particle_alpha"]=="0.9")echo "selected=\"selected\""; ?>>0.9</option>
-<option value="1" <?php if($temp["min_particle_alpha"]=="1")echo "selected=\"selected\""; ?>>1</option>
-</select><br />
-
-Big Particle alpha: <select name="max_particle_alpha">
-<option value="0" <?php if($temp["max_particle_alpha"]=="0")echo "selected=\"selected\""; ?>>0</option>
-<option value="0.1" <?php if($temp["max_particle_alpha"]=="0.1")echo "selected=\"selected\""; ?>>0.1</option>
-<option value="0.2" <?php if($temp["max_particle_alpha"]=="0.2")echo "selected=\"selected\""; ?>>0.2</option>
-<option value="0.3" <?php if($temp["max_particle_alpha"]=="0.3")echo "selected=\"selected\""; ?>>0.3</option>
-<option value="0.4" <?php if($temp["max_particle_alpha"]=="0.4")echo "selected=\"selected\""; ?>>0.4</option>
-<option value="0.5" <?php if($temp["max_particle_alpha"]=="0.5")echo "selected=\"selected\""; ?>>0.5</option>
-<option value="0.6" <?php if($temp["max_particle_alpha"]=="0.6")echo "selected=\"selected\""; ?>>0.6</option>
-<option value="0.7" <?php if($temp["max_particle_alpha"]=="0.7")echo "selected=\"selected\""; ?>>0.7</option>
-<option value="0.8" <?php if($temp["max_particle_alpha"]=="0.8")echo "selected=\"selected\""; ?>>0.8</option>
-<option value="0.9" <?php if($temp["max_particle_alpha"]=="0.9")echo "selected=\"selected\""; ?>>0.9</option>
-<option value="1" <?php if($temp["max_particle_alpha"]=="1")echo "selected=\"selected\""; ?>>1</option>
-</select><br />
-
-Small particle blur: <input type="text" name="min_particle_blur" value="<?php echo $temp["min_particle_blur"];?>" /><br />
-
-Big particle blur: <input type="text" name="max_particle_blur" value="<?php echo $temp["max_particle_blur"];?>" /><br />
 
 Target Link: <select name="target">
 <option value="_self" <?php if($temp["target"]=="_self")echo "selected=\"selected\""; ?>>Same Window</option>
@@ -478,7 +432,6 @@ $a["snoweffect_type"]=$arrXml["snow_effect"]["@attributes"]["type"];
 $a["min_particle_size"]=$arrXml["snow_effect"]["@attributes"]["minimumSize"];
 $a["max_particle_size"]=$arrXml["snow_effect"]["@attributes"]["maximumSize"];
 $a["min_particle_yspeed"]=$arrXml["snow_effect"]["@attributes"]["minimumSpeedY"];
-
 $a["max_particle_yspeed"]=$arrXml["snow_effect"]["@attributes"]["maximumSpeedY"];
 $a["min_particle_xspeed"]=$arrXml["snow_effect"]["@attributes"]["minimumSpeedX"];
 $a["max_particle_xspeed"]=$arrXml["snow_effect"]["@attributes"]["maximumSpeedX"];

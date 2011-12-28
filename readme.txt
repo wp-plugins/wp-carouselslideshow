@@ -7,11 +7,11 @@ Requires at least: 3.0
 Tested up to: 3.3
 Stable tag: trunk
 
-Carousel slideshow is a plugin that allows you to display a slideshow on your website.
+Carousel slideshow is a plugin that used to display a slideshow on your website.It is also allow us to use as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
 
 == Description ==
 
-Carousel slideshow is a plugin that allows you to display a slideshow on your website.It is also allows to use it as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
+Carousel slideshow is a plugin that used to display a slideshow on your website.It is also allow us to use as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
 
 **Features**
 * Customizable Enable/Disable Snow Effect on the slideshow
@@ -57,7 +57,7 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == How to use it as a widget ==
 
-After installing `wp-carouselslideshow` plugin in your theme just follow below instructions.
+After install `wp-carouselslideshow` plugin in your theme just follow below instructions.
 
 1. Go to Appearance > Widgets, we can simply drag & drop `Carousel Slideshow` widget where ever you want to display it.
 
@@ -74,10 +74,13 @@ After install `wp-carouselslideshow` plugin, follow the instructions below.
 1. Open your theme php file and add the line <code><?php echo do_shortcode('[carousel_slideshow]');?> </code> where ever you like to show the slide show.
 
 == change log ==
+
 1.0
  Initial released version
+
 2.0
 Added customizable option for enable/disbale snow effect on the slidehsow.
+
 3.0
-fix enable/disable description on the slideshow.
+fixed bug enable/disable description on the slideshow.
 
