@@ -23,6 +23,12 @@ Carousel slideshow can be shown in the posts using the short code [carousel]. Yo
 * Customizable options for Description 
 * Customizable corner readious option
 
+Installation Video: https://www.youtube.com/watch?v=wTrnNunHd74
+
+For working demo : http://wpslideshow.com/carousel-slideshow/
+
+
+
 Requirements/Restrictions:
 -------------------------
  * Works with Wordpress 3.0, WPMU (Wordpress 3.0+ is highly recommended)
@@ -52,13 +58,17 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == Screenshots ==
 
-1. screenshot-1.png is the front-end slideshow page.
+1. screenshot-1.png - Slideshow front end. 
 
-2. screenshot-2.png is the  tab on the `Admin Plugins` page.
+2. screenshot-2.png - Add new album / category.
 
-3. screenshot-3.png is the settings of the slideshow page.
+3. screenshot-3.png - Edit image.
 
-4. screenshot-4.png adding the shortcode `[carousel]` in a Page.
+4. screenshot-4.png - bulk upload.
+
+5. screenshot-5.png - edit album / category.
+
+6. screenshot-6.png - short code to be placed in the content.
 
 
 Installation Video: https://www.youtube.com/watch?v=wTrnNunHd74
