@@ -4,7 +4,7 @@ Contributors: wpslideshow.com
 Author URI: http://wpslideshow.com/carousel-slideshow/
 Tags: carousel slideshow, flash slideshow
 Requires at least: 3.0
-Tested up to: 3.3
+Tested up to: 3.3.1
 Stable tag: trunk
 
 Carousel slideshow is a plugin that used to display a slideshow on your website.It is also allow us to use as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
@@ -34,7 +34,7 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 1. Install automatically through the `Plugins`, `Add New` menu in WordPress, or upload the `wp-carousel-slideshow` folder to the `/wp-content/plugins/` directory. 
 
-2. Activate the plugin through the `Plugins` menu in WordPress. Look for the "Carousel slideshow Settings" link  on left side menu to configure the Options. 
+2. Activate the plugin through the `Plugins` menu in WordPress. Look for the "Settings" link  on left side menu under 'carousel' to configure the Options. 
 
 3. Click on `Carousel slideshow Settings` on leftside menu, you can find "make config.xml" on right side panel bottom location, click on it. 
 
