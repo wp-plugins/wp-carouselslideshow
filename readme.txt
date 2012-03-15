@@ -7,11 +7,11 @@ Requires at least: 3.0
 Tested up to: 3.3.1
 Stable tag: trunk
 
-Carousel slideshow is a plugin that used to display a slideshow on your website.It is also allow us to use as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
+Carousel slideshow can be shown in the posts using the short code [carousel]. You can display this slideshow multiple instances. It is also possible to display specific categories and images with their ID's in this slideshow.
 
 == Description ==
 
-Carousel slideshow is a plugin that used to display a slideshow on your website.It is also allow us to use as a widget. You can also enable Carousel slideshow on your wordpress site by placing code snippet in your template php file.
+Carousel slideshow can be shown in the posts using the short code [carousel]. You can display this slideshow multiple instances. It is also possible to display specific categories and images with their ID's in this slideshow.
 
 **Features**
 * Customizable Enable/Disable Snow Effect on the slideshow
@@ -46,6 +46,8 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 Still if you facing any issues in using this plugin please contact our support at addons@wpslideshow.com
 
+Installation Video: https://www.youtube.com/watch?v=wTrnNunHd74
+
 For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == Screenshots ==
@@ -56,9 +58,10 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 3. screenshot-3.png is the settings of the slideshow page.
 
-4. screenshot-4.png adding the shortcode `[carousel_slideshow]` in a Page.
+4. screenshot-4.png adding the shortcode `[carousel]` in a Page.
 
 
+Installation Video: https://www.youtube.com/watch?v=wTrnNunHd74
 
 
 == change log ==
