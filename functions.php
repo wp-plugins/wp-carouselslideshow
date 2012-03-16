@@ -298,7 +298,7 @@ function display_pp_gallery($vars)
 			'scale', 'showall',
 			'wmode', '".$ops['wmode']."',
 			'devicefont', 'false',
-			'id', 'explorer',
+			'id', 'carousel',
 			'bgcolor', '".$ops['bgcolor']."',
 			'name', 'carouselslideshow',
 			'menu', 'true',

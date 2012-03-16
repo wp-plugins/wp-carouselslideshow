@@ -34,7 +34,6 @@ Requirements/Restrictions:
  * Works with Wordpress 3.0, WPMU (Wordpress 3.0+ is highly recommended)
  * PHP5 
 
-For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == Installation ==
 
@@ -44,13 +43,21 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 3. Click on `Settings` on leftside menu under Carousel to change colors and other configurations.
 
-4. [carousel] - This short code will display all images under all categories which are not disabled.
+= short codes =
+* <code>[carousel]</code> - Use this short code in the content / post to display all images under all categories which are not disabled.
 
-5. [carousel cats=2,3] - This short code will display all images under the categories with ID's 2,3.
+* <code>[carousel cats=2,3]</code> - Use this short code in the content / post to display all images under the categories with ID's 2,3.
 
-6. [carousel imgs=1,2,3] - This short code will display images which has ID's 1,2,3.
+* <code>[carousel imgs=1,2,3]</code> - Use this short code in the content / post to display images which has ID's 1,2,3.
 
-Still if you facing any issues in using this plugin please contact our support at addons@wpslideshow.com
+
+* <code><?php echo do_shortcode('[carousel]');?></code> - Use this short code in the template (php file) to display all images under all categories which are not disabled.
+
+* <code><?php echo do_shortcode('[carousel cats=2,3]');?></code> - Use this short code in the template (php file) to display all images under the categories with ID's 2,3.
+
+* <code><?php echo do_shortcode('[carousel imgs=1,2,3]');?></code> - Use this short code in the template (php file) to display images which has ID's 1,2,3.
+
+If you facing any issues in using this plugin please contact our support at addons@wpslideshow.com
 
 Installation Video: https://www.youtube.com/watch?v=wTrnNunHd74
 
