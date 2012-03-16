@@ -36,12 +36,8 @@ $ops = get_option('pp_settings', array());
 		<tr>
 			<td><?php _e('Auto Slide'); ?></td>
 			<td>
-				<select name="settings[auto_slide]">
-					<option value="true" <?php print (@$ops['auto_slide'] == 'true') ? 'selected' : ''; ?>><?php _e('On');?></option>
-
-					<option value="false" <?php print (@$ops['auto_slide'] == 'false') ? 'selected' : ''; ?>><?php _e('Off');?></option>
-
-				</select>
+				<input type="radio" name="settings[auto_slide]" value="true" <?php print (@$ops['auto_slide'] == 'true') ? 'checked' : ''; ?>><span><?php _e('On'); ?></span>
+				<input type="radio" name="settings[auto_slide]" value="false" <?php print (@$ops['auto_slide'] == 'false') ? 'checked' : ''; ?>><span><?php _e('Off'); ?></span>
 			</td>
 		</tr>
 
@@ -58,36 +54,24 @@ $ops = get_option('pp_settings', array());
 		<tr>
 			<td><?php _e('Slide effect'); ?></td>
 			<td>
-				<select name="settings[transition_type]">
-					<option value="easeOut" <?php print (@$ops['transition_type'] == 'easeOut') ? 'selected' : ''; ?>><?php _e('Ease Out');?></option>
-
-					<option value="easeOutBounce" <?php print (@$ops['transition_type'] == 'easeOutBounce') ? 'selected' : ''; ?>><?php _e('EaseOut Bounce');?></option>
-
-				</select>
+				<input type="radio" name="settings[transition_type]" value="easeOut" <?php print (@$ops['transition_type'] == 'easeOut') ? 'checked' : ''; ?>><span><?php _e('Ease Out'); ?></span>
+				<input type="radio" name="settings[transition_type]" value="easeOutBounce" <?php print (@$ops['transition_type'] == 'easeOutBounce') ? 'checked' : ''; ?>><span><?php _e('EaseOut Bounce'); ?></span>
 			</td>
 		</tr>
 
 		<tr>
 			<td><?php _e('Show Description'); ?></td>
 			<td>
-				<select name="settings[show_desc]">
-					<option value="true" <?php print (@$ops['show_desc'] == 'true') ? 'selected' : ''; ?>><?php _e('Yes');?></option>
-
-					<option value="false" <?php print (@$ops['show_desc'] == 'false') ? 'selected' : ''; ?>><?php _e('No');?></option>
-
-				</select>
+				<input type="radio" name="settings[show_desc]" value="true" <?php print (@$ops['show_desc'] == 'true') ? 'checked' : ''; ?>><span><?php _e('Yes'); ?></span>
+				<input type="radio" name="settings[show_desc]" value="false" <?php print (@$ops['show_desc'] == 'false') ? 'checked' : ''; ?>><span><?php _e('No'); ?></span>
 			</td>
 		</tr>
 
 		<tr>
 			<td><?php _e('Description Position'); ?></td>
 			<td>
-				<select name="settings[desc_position]">
-					<option value="top" <?php print (@$ops['desc_position'] == 'top') ? 'selected' : ''; ?>><?php _e('Top');?></option>
-
-					<option value="bottom" <?php print (@$ops['desc_position'] == 'bottom') ? 'selected' : ''; ?>><?php _e('Bottom');?></option>
-
-				</select>
+				<input type="radio" name="settings[desc_position]" value="top" <?php print (@$ops['desc_position'] == 'top') ? 'checked' : ''; ?>><span><?php _e('Top'); ?></span>
+				<input type="radio" name="settings[desc_position]" value="bottom" <?php print (@$ops['desc_position'] == 'bottom') ? 'checked' : ''; ?>><span><?php _e('Bottom'); ?></span>
 			</td>
 		</tr>
 
@@ -119,36 +103,24 @@ $ops = get_option('pp_settings', array());
 		<tr>
 			<td><?php _e('Image Reflection Type'); ?></td>
 			<td>
-				<select name="settings[image_reflection]">
-					<option value="image" <?php print (@$ops['image_reflection'] == 'image') ? 'selected' : ''; ?>><?php _e('Reflection');?></option>
-
-					<option value="off" <?php print (@$ops['image_reflection'] == 'off') ? 'selected' : ''; ?>><?php _e('No Reflection');?></option>
-
-				</select>
+				<input type="radio" name="settings[image_reflection]" value="image" <?php print (@$ops['image_reflection'] == 'image') ? 'checked' : ''; ?>><span><?php _e('Reflection'); ?></span>
+				<input type="radio" name="settings[image_reflection]" value="off" <?php print (@$ops['image_reflection'] == 'off') ? 'checked' : ''; ?>><span><?php _e('No Reflection'); ?></span>
 			</td>
 		</tr>
 
 		<tr>
-			<td><?php _e('Show Navigation bar'); ?></td>
+			<td><?php _e('Show Navigation Bar'); ?></td>
 			<td>
-				<select name="settings[progressbar]">
-					<option value="true" <?php print (@$ops['progressbar'] == 'true') ? 'selected' : ''; ?>><?php _e('Yes');?></option>
-
-					<option value="false" <?php print (@$ops['progressbar'] == 'false') ? 'selected' : ''; ?>><?php _e('No');?></option>
-
-				</select>
+				<input type="radio" name="settings[progressbar]" value="true" <?php print (@$ops['progressbar'] == 'true') ? 'checked' : ''; ?>><span><?php _e('Yes'); ?></span>
+				<input type="radio" name="settings[progressbar]" value="false" <?php print (@$ops['progressbar'] == 'false') ? 'checked' : ''; ?>><span><?php _e('No'); ?></span>
 			</td>
 		</tr>
 
 		<tr>
 			<td><?php _e('Navigation bar Position'); ?></td>
 			<td>
-				<select name="settings[progressbar_position]">
-					<option value="top" <?php print (@$ops['progressbar_position'] == 'top') ? 'selected' : ''; ?>><?php _e('Top');?></option>
-
-					<option value="bottom" <?php print (@$ops['progressbar_position'] == 'bottom') ? 'selected' : ''; ?>><?php _e('Bottom');?></option>
-
-				</select>
+				<input type="radio" name="settings[progressbar_position]" value="top" <?php print (@$ops['progressbar_position'] == 'top') ? 'checked' : ''; ?>><span><?php _e('Top'); ?></span>
+				<input type="radio" name="settings[progressbar_position]" value="bottom" <?php print (@$ops['progressbar_position'] == 'bottom') ? 'checked' : ''; ?>><span><?php _e('Bottom'); ?></span>
 			</td>
 		</tr>
 
@@ -186,7 +158,7 @@ $ops = get_option('pp_settings', array());
 
 					<option value="90" <?php print (@$ops['progressbar_alpha'] == '90') ? 'selected' : ''; ?>><?php _e('90');?></option>
 
-					<option value="100" <?php print (@$ops['progressbar_alpha'] == '1') ? 'selected' : ''; ?>><?php _e('100');?></option>
+					<option value="100" <?php print (@$ops['progressbar_alpha'] == '100') ? 'selected' : ''; ?>><?php _e('100');?></option>
 
 				</select>
 			</td>
@@ -195,12 +167,8 @@ $ops = get_option('pp_settings', array());
 		<tr>
 			<td><?php _e('Image Scaling'); ?></td>
 			<td>
-				<select name="settings[picture_scalling]">
-					<option value="yes" <?php print (@$ops['picture_scalling'] == 'yes') ? 'selected' : ''; ?>><?php _e('Yes');?></option>
-
-					<option value="no" <?php print (@$ops['picture_scalling'] == 'no') ? 'selected' : ''; ?>><?php _e('No');?></option>
-
-				</select>
+				<input type="radio" name="settings[picture_scalling]" value="true" <?php print (@$ops['picture_scalling'] == 'true') ? 'checked' : ''; ?>><span><?php _e('Yes'); ?></span>
+				<input type="radio" name="settings[picture_scalling]" value="false" <?php print (@$ops['picture_scalling'] == 'false') ? 'checked' : ''; ?>><span><?php _e('No'); ?></span>
 			</td>
 		</tr>
 
@@ -240,12 +208,8 @@ $ops = get_option('pp_settings', array());
 		<tr>
 			<td><?php _e('Target Link'); ?></td>
 			<td>
-				<select name="settings[target]">
-					<option value="_self" <?php print (@$ops['target'] == '_self') ? 'selected' : ''; ?>><?php _e('Same Window');?></option>
-
-					<option value="_blank" <?php print (@$ops['target'] == '_blank') ? 'selected' : ''; ?>><?php _e('New Window');?></option>
-
-				</select>
+				<input type="radio" name="settings[target]" value="_self" <?php print (@$ops['target'] == '_self') ? 'checked' : ''; ?>><span><?php _e('Same Window'); ?></span>
+				<input type="radio" name="settings[target]" value="_blank" <?php print (@$ops['target'] == '_blank') ? 'checked' : ''; ?>><span><?php _e('New Window'); ?></span>
 			</td>
 		</tr>
 

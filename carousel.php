@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP Carousel slideshow
-Version: 3.5
+Version: 3.6
 Plugin URI: http://wpslideshow.com/carousel-slideshow/
 Description: Carousel slideshow for wordpress
 Author: XML / SWF

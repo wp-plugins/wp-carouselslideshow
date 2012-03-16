@@ -60,15 +60,15 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 1. screenshot-1.png - Slideshow front end. 
 
-2. screenshot-2.png - Add new album / category.
+2. screenshot-2.gif - Add new album / category.
 
-3. screenshot-3.png - Edit image.
+3. screenshot-3.gif - Edit image.
 
 4. screenshot-4.png - bulk upload.
 
-5. screenshot-5.png - edit album / category.
+5. screenshot-5.gif - edit album / category.
 
-6. screenshot-6.png - short code to be placed in the content.
+6. screenshot-6.gif - short code to be placed in the content.
 
 
 Installation Video: https://www.youtube.com/watch?v=wTrnNunHd74
@@ -87,3 +87,6 @@ fixed bug enable/disable description on the slideshow.
 
 3.5
 This is entirely new build. It is not possible to upgrade from old version to this version. You need to uninstall old version an dinstall the new version.
+
+3.6
+Fixed few settings

@@ -11,7 +11,7 @@ $pp_settings = array(
 	'autoslide_time' => '10',
 	'transition_speed' => '50',
 	'transition_type' => 'easeOut',
-	'show_desc' => 'yes',
+	'show_desc' => 'true',
 	'desc_position' => 'bottom',
 	'desc_bgcolor' => 'FF0000',
 	'desc_bgcoloralpha' => '90',
@@ -19,12 +19,12 @@ $pp_settings = array(
 	'desc_roundness' => '0',
 	'slideshow_bordercolor' => 'FFFFFF',
 	'image_reflection' => 'image',
-	'progressbar' => 'yes',
+	'progressbar' => 'true',
 	'progressbar_position' => 'top',
 	'progressbar_color' => 'A8A8A8',
 	'progressbar_highlightcolor' => '000000',
 	'progressbar_alpha' => '100',
-	'picture_scalling' => 'yes',
+	'picture_scalling' => 'true',
 	'snoweffect_type' => '1',
 	'noof_particles' => '125',
 	'min_particle_blur' => '0',
@@ -203,7 +203,7 @@ function display_pp_gallery($vars)
 					//$album_dir = PPLAY_PLUGIN_UPLOADS_URL . '/' . md5($album['album_id']);
 					$album_dir = pp_get_album_url($album['album_id']);//PPLAY_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
 					
-					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"true\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 
 					
 				}
@@ -228,7 +228,7 @@ function display_pp_gallery($vars)
 			//$album_dir = PPLAY_PLUGIN_UPLOADS_URL . '/' . md5($album['album_id']);
 			$album_dir = pp_get_album_url($album['album_id']);//PPLAY_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
 
-					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"true\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 		}
 
 		//$xml_filename = "image_".str_replace(',', '', $imgs) . '.xml';
@@ -251,7 +251,7 @@ function display_pp_gallery($vars)
 					//$album_dir = PPLAY_PLUGIN_UPLOADS_URL . '/' . md5($album['album_id']);
 					$album_dir = pp_get_album_url($album['album_id']);//PPLAY_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
 
-					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"true\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 				}
 			}
 		}
