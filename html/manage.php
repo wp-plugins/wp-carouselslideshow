@@ -1,6 +1,6 @@
 <?php
-global $wpdb, $gpp;
-$ops = get_option('pp_settings', array());
+global $wpdb, $gcrs;
+$ops = get_option('carousel_settings', array());
 $query = "SELECT album_id, name, description, image, thumb, status, `order`, creation_date 
 			FROM {$wpdb->prefix}carousel_albums
 			ORDER BY `order` ASC";
@@ -10,7 +10,7 @@ $cpage = 'admin.php?page='.$_REQUEST['page'];
 <div class="wrap">
 	<h2><?php _e('Album Management'); ?><a href="javascript:;" id="add_new_album" class="add-new-h2"><?php _e('Add New'); ?></a></h2>
 	<form id="add_new_album_form" action="" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="task" value="add_new_album" />
+		<input type="hidden" name="task" value="carousel_add_new_album" />
 		<table>
 		<tr>
 			<td><label><?php _e('Album Name'); ?></label></td>
@@ -42,9 +42,9 @@ $cpage = 'admin.php?page='.$_REQUEST['page'];
 					<option value="100">100</option>
 				</select> entries</label>
 			</div>&nbsp;&nbsp;&nbsp;
-			<?php pp_get_table_actions(array('bulk_delete_albums' => 'Delete', 
-											'bulk_disable_albums' => 'Disable', 
-											'bulk_enable_albums' => 'Enable')); ?>
+			<?php carousel_get_table_actions(array('carousel_bulk_delete_albums' => 'Delete', 
+											'carousel_bulk_disable_albums' => 'Disable', 
+											'carousel_bulk_enable_albums' => 'Enable')); ?>
 		</div>
 		<table id="albums_table" class="widefat data-table">
 		<thead>
@@ -62,7 +62,7 @@ $cpage = 'admin.php?page='.$_REQUEST['page'];
 		<?php if( empty($albums) ): ?>
 		<tr><td colspan="7"><h4><?php _e('There are no albums yet'); ?></h4></td></tr>
 		<?php else: ?>
-		<?php require_once PPLAY_PLUGIN_DIR . '/html/albums_rows.php'; ?>
+		<?php require_once CRS_PLUGIN_DIR . '/html/albums_rows.php'; ?>
 		<?php endif; ?>
 		</tbody>
 		</table>
@@ -73,14 +73,15 @@ $cpage = 'admin.php?page='.$_REQUEST['page'];
 	{
 		
 		$album_id = (int)$_REQUEST['album_id'];
-		$album = $gpp->get_album($album_id);
+		$album = $gcrs->carousel_get_album($album_id);
 		//print_r($album);
-		$images = $gpp->get_album_images($album_id);
+		$images = $gcrs->carousel_get_album_images($album_id);
 		//print_r($images); 
 		$album['images'] = $wpdb->get_results($query, ARRAY_A);
 		print '<h3>'.__('Manage images ('.@$album['name'].')') .'</h3>';
-		require_once PPLAY_PLUGIN_DIR . '/html/' . $_REQUEST['view'] . '.php';
-		
+		if (!(strstr($_REQUEST['view'], '/')) && !(strstr($_REQUEST['view'], "\\"))) {
+			require_once CRS_PLUGIN_DIR . '/html/' . $_REQUEST['view'] . '.php';
+		}
 	} 
 	?>
 </div>

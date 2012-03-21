@@ -1,8 +1,7 @@
 <?php
 function carousel_get_def_settings()
 {
-$pp_settings = array(
-	'slideshow_width' => '550',
+	$carousel_settings = array('slideshow_width' => '550',
 	'slideshow_height' => '390',
 	'mainimage_width' => '400',
 	'mainimage_height' => '300',
@@ -32,11 +31,13 @@ $pp_settings = array(
 	'wmode' => 'opaque',
 	'target' => '_blank'
 			);
-	return $pp_settings;
+	return $carousel_settings;
 }
-function __get_pp_xml_settings()
+function __get_carousel_xml_settings()
 {
-	$ops = get_option('pp_settings', array());
+	// (($ops['auto_play'] == 'yes') ? 'true' : 'false')
+	//CRS_PLUGIN_URL.'/price_images/'.$ops['pricebtn_img']
+	$ops = get_option('carousel_settings', array());
 	$xml_settings = '<settings>
 		<main_image width="'.$ops['mainimage_width'].'" height="'.$ops['mainimage_height'].'" />
 		<background>'.$ops['bgcolor'].'</background>
@@ -88,20 +89,12 @@ function __get_pp_xml_settings()
 		minimumBlur="'.$ops['min_particle_blur'].'"
 		maximumBlur="'.$ops['max_particle_blur'].'"
 	/>';
-
-	
 	return $xml_settings;
 }
-
-function pp_get_album_dir($album_id)
+function carousel_get_album_dir($album_id)
 {
-	global $gpp;
-	
-	$album = $gpp->get_album((int)$album_id);
-	//$album_dir = sanitize_file_name(sanitize_title(strtolower(trim($album['name']))));
-	//$album_dir = preg_replace('/\s+/isU', '_', $album_dir);
-	$album_dir = PPLAY_PLUGIN_UPLOADS_DIR . "/{$album_id}_uploadfolder";
-
+	global $gcrs;
+	$album_dir = CRS_PLUGIN_UPLOADS_DIR . "/{$album_id}_uploadfolder";
 	return $album_dir;
 }
 /**
@@ -109,18 +102,13 @@ function pp_get_album_dir($album_id)
  * @param $album_id
  * @return unknown_type
  */
-function pp_get_album_url($album_id)
+function carousel_get_album_url($album_id)
 {
-	global $gpp;
-	
-	$album = $gpp->get_album((int)$album_id);
-	//$album_url = sanitize_file_name(sanitize_title(strtolower(trim($album['name']))));
-	//$album_url = preg_replace('/\s+/isU', '_', $album_url);
-	$album_url = PPLAY_PLUGIN_UPLOADS_URL . "/{$album_id}_uploadfolder";
-
+	global $gcrs;
+	$album_url = CRS_PLUGIN_UPLOADS_URL . "/{$album_id}_uploadfolder";
 	return $album_url;
 }
-function pp_get_table_actions(array $tasks)
+function carousel_get_table_actions(array $tasks)
 {
 	?>
 	<div class="bulk_actions">
@@ -135,7 +123,7 @@ function pp_get_table_actions(array $tasks)
 	</div>
 	<?php 
 }
-function shortcode_display_pp_gallery($atts)
+function shortcode_display_carousel_gallery($atts)
 {
 	$vars = shortcode_atts( array(
 									'cats' => '',
@@ -144,17 +132,25 @@ function shortcode_display_pp_gallery($atts)
 							$atts );
 	//extract( $vars );
 	
-	display_pp_gallery($vars);
+	display_carousel_gallery($vars);
 }
-function display_pp_gallery($vars)
+function display_carousel_gallery($vars)
 {
-	global $wpdb, $gpp;
-	$ops = get_option('pp_settings', array());
+	global $wpdb, $gcrs;
+	$ops = get_option('carousel_settings', array());
 	//print_r($ops);
 	$albums = null;
 	$images = null;
 	$cids = trim($vars['cats']);
+	if (strlen($cids) != strspn($cids, "0123456789,")) {
+		$cids = '';
+		$vars['cats'] = '';
+	}
 	$imgs = trim($vars['imgs']);
+	if (strlen($imgs) != strspn($imgs, "0123456789,")) {
+		$imgs = '';
+		$vars['imgs'] = '';
+	}
 	$categories = '';
 	$xml_filename = '';
 	if( !empty($cids) && $cids{strlen($cids)-1} == ',')
@@ -176,9 +172,9 @@ function display_pp_gallery($vars)
 	}
 	else
 	{
-		$xml_filename = "pp_all.xml";
+		$xml_filename = "carousel_all.xml";
 	}
-	//die(PPLAY_PLUGIN_XML_DIR . '/' . $xml_filename);
+	//die(CRS_PLUGIN_XML_DIR . '/' . $xml_filename);
 
 	$imageContainer = "";
 	
@@ -189,49 +185,35 @@ function display_pp_gallery($vars)
 		$albums = $wpdb->get_results($query, ARRAY_A);
 		foreach($albums as $key => $album)
 		{
-
-			$images = $gpp->get_album_images($album['album_id']);
-			if($images)
-			{
-				$categories .= "<category id=\"{$album['album_id']}\">
-									<name><![CDATA[{$album['name']}]]></name>
-									<images>";
+			$images = $gcrs->carousel_get_album_images($album['album_id']);
+			if ($images && !empty($images) && is_array($images)) {
+				$album_dir = carousel_get_album_url($album['album_id']);//CRS_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
 				foreach($images as $key => $img)
 				{
 					if( $img['status'] == 0 ) continue;
-	//test to delete the md5
-					//$album_dir = PPLAY_PLUGIN_UPLOADS_URL . '/' . md5($album['album_id']);
-					$album_dir = pp_get_album_url($album['album_id']);//PPLAY_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
 					
 					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 
-					
 				}
-//				$categories .= "</images></category>";
 			}
 		}
 		//$xml_filename = "cat_".str_replace(',', '', $cids) . '.xml';
 	}
 	elseif( !empty($vars['imgs']))
 	{
-		 
 		$query = "SELECT * FROM {$wpdb->prefix}carousel_images WHERE image_id IN($imgs) AND status = 1 ORDER BY `order` ASC";
 		$images = $wpdb->get_results($query, ARRAY_A);
-		$categories .= "<category id=\"\">
-								<name><![CDATA[]]></name>
-								<images>";
-		foreach($images as $key => $img)
-		{
-			$album = $gpp->get_album($img['category_id']);
+		if ($images && !empty($images) && is_array($images)) {
+			foreach($images as $key => $img)
+			{
+				$album = $gcrs->carousel_get_album($img['category_id']);
+				$album_dir = carousel_get_album_url($album['album_id']);//CRS_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
+				if( $img['status'] == 0 ) continue;
+				
+				$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 
-//test to delete the md5			
-			//$album_dir = PPLAY_PLUGIN_UPLOADS_URL . '/' . md5($album['album_id']);
-			$album_dir = pp_get_album_url($album['album_id']);//PPLAY_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
-
-					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+			}
 		}
-
-		//$xml_filename = "image_".str_replace(',', '', $imgs) . '.xml';
 	}
 	//no values paremeters setted
 	else//( empty($vars['cats']) && empty($vars['imgs']))
@@ -240,46 +222,43 @@ function display_pp_gallery($vars)
 		$albums = $wpdb->get_results($query, ARRAY_A);
 		foreach($albums as $key => $album)
 		{
-			$images = $gpp->get_album_images($album['album_id']);
-			if($images)
-			{
-				
+			$images = $gcrs->carousel_get_album_images($album['album_id']);
+			$album_dir = carousel_get_album_url($album['album_id']);//CRS_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
+			if ($images && !empty($images) && is_array($images)) {
 				foreach($images as $key => $img)
 				{
 					if($img['status'] == 0 ) continue;
-	//test to delete the md5
-					//$album_dir = PPLAY_PLUGIN_UPLOADS_URL . '/' . md5($album['album_id']);
-					$album_dir = pp_get_album_url($album['album_id']);//PPLAY_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
-
+					
 					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+
 				}
 			}
 		}
-		//$xml_filename = "pp_all.xml";
+		//$xml_filename = "carousel_all.xml";
 	}
 	
-	$xml_tpl = __get_pp_xml_template();
-	$settings = __get_pp_xml_settings();
+	$xml_tpl = __get_carousel_xml_template();
+	$settings = __get_carousel_xml_settings();
 //	$xml = str_replace(array('{settings}', '{default_category}', '{categories}'), 
 //						array($settings, $album['album_id'], $categories), $xml_tpl);
 	$xml = str_replace(array('{settings}', '{image_container}'), 
 						array($settings, $imageContainer), $xml_tpl);
-
+						
 	//write new xml file
-	$fh = fopen(PPLAY_PLUGIN_XML_DIR . '/' . $xml_filename, 'w+');
+	$fh = fopen(CRS_PLUGIN_XML_DIR . '/' . $xml_filename, 'w+');
 	fwrite($fh, $xml);
 	fclose($fh);
 	//print "<h3>Generated filename: $xml_filename</h3>";
 	//print $xml;
-	if( file_exists(PPLAY_PLUGIN_XML_DIR . '/' . $xml_filename ) )
+	if( file_exists(CRS_PLUGIN_XML_DIR . '/' . $xml_filename ) )
 	{
-		$fh = fopen(PPLAY_PLUGIN_XML_DIR . '/' . $xml_filename, 'r');
-		$xml = fread($fh, filesize(PPLAY_PLUGIN_XML_DIR . '/' . $xml_filename));
+		$fh = fopen(CRS_PLUGIN_XML_DIR . '/' . $xml_filename, 'r');
+		$xml = fread($fh, filesize(CRS_PLUGIN_XML_DIR . '/' . $xml_filename));
 		fclose($fh);
 		//print "<h3>Getting xml file from cache: $xml_filename</h3>";
 		echo "
 		<script language=\"javascript\">AC_FL_RunContent = 0;</script>
-<script src=\"".PPLAY_PLUGIN_URL."/js/AC_RunActiveContent.js\" language=\"javascript\"></script>
+<script src=\"".CRS_PLUGIN_URL."/js/AC_RunActiveContent.js\" language=\"javascript\"></script>
 
 		<script language=\"javascript\"> 
 	if (AC_FL_RunContent == 0) {
@@ -289,35 +268,35 @@ function display_pp_gallery($vars)
 			'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0',
 			'width', '".$ops['slideshow_width']."',
 			'height', '".$ops['slideshow_height']."',
-			'src', '".PPLAY_PLUGIN_URL."/js/carouselslideshow',
+			'src', '".CRS_PLUGIN_URL."/js/wp_carouselslideshow',
 			'quality', 'high',
-			'pluginspage', 'http://www.adobe.com/go/getflashplayer_cn',
+			'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
 			'align', 'middle',
 			'play', 'true',
 			'loop', 'true',
 			'scale', 'showall',
 			'wmode', '".$ops['wmode']."',
 			'devicefont', 'false',
-			'id', 'carousel',
+			'id', 'xmlswf_vmcrs',
 			'bgcolor', '".$ops['bgcolor']."',
-			'name', 'carouselslideshow',
+			'name', 'xmlswf_vmcrs',
 			'menu', 'true',
-			'allowFullScreen', 'false',
+			'allowFullScreen', 'true',
 			'allowScriptAccess','sameDomain',
-			'movie', '".PPLAY_PLUGIN_URL."/js/carouselslideshow',
+			'movie', '".CRS_PLUGIN_URL."/js/wp_carouselslideshow',
 			'salign', '',
-			'flashVars','dataFile=".PPLAY_PLUGIN_URL."/xml/$xml_filename'
+			'flashVars','dataFile=".CRS_PLUGIN_URL."/xml/$xml_filename'
 			); //end AC code
 	}
 </script>
 ";
-//echo PPLAY_PLUGIN_UPLOADS_URL."<hr>";
+//echo CRS_PLUGIN_UPLOADS_URL."<hr>";
 //		print $xml;
 		return true;
 	}
 	return true;
 }
-function __get_pp_xml_template()
+function __get_carousel_xml_template()
 {
 	$xml_tpl = '<?xml version="1.0" encoding="utf-8" ?>
 				<slideshow>

@@ -34,8 +34,8 @@ if( !($album = $wpdb->get_row($query, ARRAY_A)) )
 	do_action('admin_print_styles');
 	do_action("admin_print_scripts-$hook_suffix");
 	do_action('admin_print_scripts');
-	do_action("admin_head-$hook_suffix");
-	do_action('admin_head'); 
+	do_action("carousel_admin_head-$hook_suffix");
+	do_action('carousel_admin_head'); 
 	?>
 </head>
 <body>
@@ -45,7 +45,7 @@ if( !($album = $wpdb->get_row($query, ARRAY_A)) )
 		<div id="wpbody"><!-- <div id="wpbody-content">  -->
 			<div class="wrap" style="padding: 12px;">
 				<form id="edit_album_form" action="<?php print admin_url() ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="task" value="add_new_album" />
+					<input type="hidden" name="task" value="carousel_add_new_album" />
 					<input type="hidden" name="TB_iframe" value="1" />
 					<input type="hidden" name="album_id" value="<?php print $album['album_id']; ?>" />
 					<table>
@@ -61,7 +61,7 @@ if( !($album = $wpdb->get_row($query, ARRAY_A)) )
 						<td><label><?php _e('Album Image'); ?></label></td>
 						<td>
 							<input type="file" name="album_img" value="" />
-							<img src="<?php print pp_get_album_url($album['album_id']) . '/thumb/' . $album['thumb']; ?>" />
+							<img src="<?php print carousel_get_album_url($album['album_id']) . '/thumb/' . $album['thumb']; ?>" />
 						</td>
 					</tr>
 					</table>

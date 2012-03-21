@@ -11,14 +11,14 @@ require_once $path . '/wp-admin/admin.php';
 //require_once $path . '/wp-admin/includes/plugin.php';
 //require_once $path . '/wp-admin/includes/template.php';
 //require_once $path . '/wp-admin/admin-header.php';
-global $wpdb, $gpp;
+global $wpdb, $gcrs;
 $album_id = (int)$_REQUEST['album_id'];
-$image_id = (int)$_REQUEST['pp_image_id'];
-if( !($album = $gpp->get_album($album_id)) )
+$image_id = (int)$_REQUEST['carousel_image_id'];
+if( !($album = $gcrs->carousel_get_album($album_id)) )
 {
 	die('Album id does not exists');
 }
-if( !($image = $gpp->get_image($image_id)) )
+if( !($image = $gcrs->get_image($image_id)) )
 {
 	die('Invalid image id');	
 }
@@ -41,8 +41,8 @@ if( !($image = $gpp->get_image($image_id)) )
 	do_action('admin_print_styles');
 	do_action("admin_print_scripts-$hook_suffix");
 	do_action('admin_print_scripts');
-	do_action("admin_head-$hook_suffix");
-	do_action('admin_head'); 
+	do_action("carousel_admin_head-$hook_suffix");
+	do_action('carousel_admin_head'); 
 	?>
 </head>
 <body>
@@ -53,7 +53,7 @@ if( !($image = $gpp->get_image($image_id)) )
 			<div class="wrap" style="padding: 12px;">
 				<h2 style="margin-left: 5px !important;"><?php _e('Edit Image'); ?></h2>
 				<form id="edit_album_form" action="<?php print admin_url() ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="task" value="single_image_upload" />
+					<input type="hidden" name="task" value="carousel_single_image_upload" />
 					<input type="hidden" name="TB_iframe" value="1" />
 					<input type="hidden" name="album_id" value="<?php print $album_id; ?>" />
 					<input type="hidden" name="image_id" value="<?php print $image_id; ?>" />
@@ -79,7 +79,7 @@ if( !($image = $gpp->get_image($image_id)) )
 						<td><label><?php _e('Image file'); ?></label></td>
 						<td>
 							<input type="file" name="image_file" value="" />
-							<img src="<?php print pp_get_album_url($album_id) . '/thumb/' . $image['thumb']; ?>" />
+							<img src="<?php print carousel_get_album_url($album_id) . '/thumb/' . $image['thumb']; ?>" />
 						</td>
 					</tr>
 					</table>

@@ -1,21 +1,21 @@
 <?php
 /*
-Plugin Name: WP Carousel slideshow
-Version: 3.6
+Plugin Name: Carousel Slideshow
+Version: 3.7
 Plugin URI: http://wpslideshow.com/carousel-slideshow/
-Description: Carousel slideshow for wordpress
-Author: XML / SWF
+Description: A Gallery Management Plugin
+Author: WP Slideshow
 Author URI: http://wpslideshow.com
 */
-define('PPLAY_PLUGIN_DIR', dirname(__FILE__));
-define('PPLAY_PLUGIN_URL', WP_PLUGIN_URL . '/' . basename(PPLAY_PLUGIN_DIR));
-define('PPLAY_PLUGIN_UPLOADS_DIR', PPLAY_PLUGIN_DIR . '/uploads');
-define('PPLAY_PLUGIN_UPLOADS_URL', PPLAY_PLUGIN_URL . '/uploads');
-define('PPLAY_PLUGIN_XML_DIR', PPLAY_PLUGIN_DIR . '/xml');
-define('PPLAY_PLUGIN_XML_URL', PPLAY_PLUGIN_URL . '/xml');
+define('CRS_PLUGIN_DIR', dirname(__FILE__));
+define('CRS_PLUGIN_URL', WP_PLUGIN_URL . '/' . basename(CRS_PLUGIN_DIR));
+define('CRS_PLUGIN_UPLOADS_DIR', CRS_PLUGIN_DIR . '/uploads');
+define('CRS_PLUGIN_UPLOADS_URL', CRS_PLUGIN_URL . '/uploads');
+define('CRS_PLUGIN_XML_DIR', CRS_PLUGIN_DIR . '/xml');
+define('CRS_PLUGIN_XML_URL', CRS_PLUGIN_URL . '/xml');
 
-require_once PPLAY_PLUGIN_DIR . '/functions.php';
-class PPlay
+require_once CRS_PLUGIN_DIR . '/functions.php';
+class CarouselSideshow
 {
 	private $errors = array(); 
 	public $messages = array();
@@ -30,14 +30,14 @@ class PPlay
 		$this->add_filters();
 		$this->add_shortcodes();
 		$this->add_scripts();
-		if( !is_dir(PPLAY_PLUGIN_UPLOADS_DIR) )
-			$this->errors[] = __('Carousel: The uploads dir does not exists, please create it and set write permissions');
-		if( is_dir(PPLAY_PLUGIN_UPLOADS_DIR) && !is_writable(PPLAY_PLUGIN_UPLOADS_DIR) )
-			$this->errors[] = sprintf(__('Carousel: The upload dir "%s" is not writable, please set writte permissions'), PPLAY_PLUGIN_UPLOADS_DIR);
-		if( !is_dir(PPLAY_PLUGIN_XML_DIR) )
-			$this->errors[] = __('Carousel: The folder to store xml files does not exits, please create it and set write permissions');
-		if( is_dir(PPLAY_PLUGIN_XML_DIR) && !is_writable(PPLAY_PLUGIN_XML_DIR) )
-			$this->errors[] = sprintf(__('Carousel: The folder to store xml files "%s" is not writable, please set writte permissions'), PPLAY_PLUGIN_XML_DIR);
+		if( !is_dir(CRS_PLUGIN_UPLOADS_DIR) )
+			$this->errors[] = __('Carousel Slideshow: The uploads dir does not exists, please create it and set write permissions');
+		if( is_dir(CRS_PLUGIN_UPLOADS_DIR) && !is_writable(CRS_PLUGIN_UPLOADS_DIR) )
+			$this->errors[] = sprintf(__('Carousel Slideshow: The upload dir "%s" is not writable, please set writte permissions'), CRS_PLUGIN_UPLOADS_DIR);
+		if( !is_dir(CRS_PLUGIN_XML_DIR) )
+			$this->errors[] = __('Carousel Slideshow: The folder to store xml files does not exits, please create it and set write permissions');
+		if( is_dir(CRS_PLUGIN_XML_DIR) && !is_writable(CRS_PLUGIN_XML_DIR) )
+			$this->errors[] = sprintf(__('Carousel Slideshow: The folder to store xml files "%s" is not writable, please set writte permissions'), CRS_PLUGIN_XML_DIR);
 	}
 	public function add_actions()
 	{
@@ -46,7 +46,7 @@ class PPlay
 			add_action('admin_menu', array($this, 'add_menus'));
 			add_action('admin_notices', array($this, 'admin_notices'));
 			add_action('init', array($this, 'handle_admin_request'));
-			add_action('admin_head', array($this, 'admin_head'));
+			add_action('admin_head', array($this, 'carousel_admin_head'));
 		}
 		else
 		{
@@ -62,53 +62,53 @@ class PPlay
 		global $pagenow, $typenow;
 		$plugin_page = $_GET['page'];
 		if( is_admin() && ($plugin_page == 'carousel_manage')):
-			wp_enqueue_style('pp_admin_css', PPLAY_PLUGIN_URL . '/css/admin.css');
-			wp_enqueue_style('pp_default_css', PPLAY_PLUGIN_URL . '/css/default.css');
+			wp_enqueue_style('carousel_admin_css', CRS_PLUGIN_URL . '/css/admin.css');
+			wp_enqueue_style('carousel_default_css', CRS_PLUGIN_URL . '/css/default.css');
 
-			wp_enqueue_style('pp_dd_css', PPLAY_PLUGIN_URL . '/css/data_tables.css');
-			wp_enqueue_script('pp_swfupload', PPLAY_PLUGIN_URL . '/js/swfupload/js/swfupload.js');
+			wp_enqueue_style('carousel_dd_css', CRS_PLUGIN_URL . '/css/data_tables.css');
+			wp_enqueue_script('carousel_swfupload', CRS_PLUGIN_URL . '/js/swfupload/js/swfupload.js');
 
-			wp_enqueue_script('pp_swfuploadqueue', PPLAY_PLUGIN_URL . '/js/swfupload/js/swfupload.queue.js');
-			wp_enqueue_script('pp_fileprogress', PPLAY_PLUGIN_URL . '/js/swfupload/js/fileprogress.js');
-			wp_enqueue_script('pp_handlers', PPLAY_PLUGIN_URL . '/js/swfupload/js/handlers.js');
+			wp_enqueue_script('carousel_swfuploadqueue', CRS_PLUGIN_URL . '/js/swfupload/js/swfupload.queue.js');
+			wp_enqueue_script('carousel_fileprogress', CRS_PLUGIN_URL . '/js/swfupload/js/fileprogress.js');
+			wp_enqueue_script('carousel_handlers', CRS_PLUGIN_URL . '/js/swfupload/js/handlers.js');
 			wp_enqueue_style( 'farbtastic' );     
 			wp_enqueue_script( 'farbtastic' ); 
 
-			//wp_enqueue_script('pp_swfobject', PPLAY_PLUGIN_URL . '/js/uploadify-2.1.4/swfobject.js');
-			//wp_enqueue_script('pp_uploadify', PPLAY_PLUGIN_URL . '/js/uploadify-2.1.4/jquery.uploadify.v2.1.4.min.js', array('jquery', 'pp_swfobject'));
-			wp_enqueue_script('pp_tp_js', PPLAY_PLUGIN_URL . '/js/paging.js');
-			wp_enqueue_script('pp_admin_js', PPLAY_PLUGIN_URL . '/js/admin.js');
+			//wp_enqueue_script('carousel_swfobject', CRS_PLUGIN_URL . '/js/uploadify-2.1.4/swfobject.js');
+			//wp_enqueue_script('carousel_uploadify', CRS_PLUGIN_URL . '/js/uploadify-2.1.4/jquery.uploadify.v2.1.4.min.js', array('jquery', 'carousel_swfobject'));
+			wp_enqueue_script('carousel_tp_js', CRS_PLUGIN_URL . '/js/paging.js');
+			wp_enqueue_script('carousel_admin_js', CRS_PLUGIN_URL . '/js/admin.js');
 			//wp_enqueue_script('thickbox');//, home_url() . '/wp-includes/js/thickbox/thickbox.js', array('jquery'));
 			add_thickbox();
 		endif;
 		if( is_admin() && ($plugin_page == 'carousel_settings')):
-			//wp_enqueue_script( PPLAY_PLUGIN_URL . '/js/jscolor/jscolor.js' );
+			//wp_enqueue_script( CRS_PLUGIN_URL . '/js/jscolor/jscolor.js' );
 		
-			wp_enqueue_script('pp_setting_js', PPLAY_PLUGIN_URL . '/js/jscolor/jscolor.js');
-			//wp_enqueue_script('pp_setting_js', PPLAY_PLUGIN_URL . '/js/setting.js');
+			wp_enqueue_script('carousel_setting_js', CRS_PLUGIN_URL . '/js/jscolor/jscolor.js');
+			//wp_enqueue_script('carousel_setting_js', CRS_PLUGIN_URL . '/js/setting.js');
 		endif;
 
 	}
 	public function add_shortcodes()
 	{
-		add_shortcode('carousel', 'shortcode_display_pp_gallery');
+		add_shortcode('carousel', 'shortcode_display_carousel_gallery');
 	}
 	public function add_menus()
 	{
-		add_menu_page(__('carousel'), __('Carousel'), 8, 'carousel_menu', create_function('', 'require_once PPLAY_PLUGIN_DIR . "/html/about.php";'));
-		add_submenu_page('carousel_menu', __('Carousel Setting'), __('About'), 8, 'carousel_menu', 
-							create_function('', 'require_once PPLAY_PLUGIN_DIR . "/html/about.php";'));
-		add_submenu_page('carousel_menu', __('Carousel Setting'), __('Settings'), 8, 'carousel_settings', 
-							create_function('', 'require_once PPLAY_PLUGIN_DIR . "/html/settings.php";'));
-		add_submenu_page('carousel_menu', __('Carousel Management'), __('Album Management'), 8, 'carousel_manage', 
-							create_function('', 'require_once PPLAY_PLUGIN_DIR . "/html/manage.php";'));
-		add_submenu_page('carousel_menu', __('Carousel Cache'), __('Delete Cache'), 8, 'carousel_cache', 
-							create_function('', 'require_once PPLAY_PLUGIN_DIR . "/html/cache.php";'));
+		add_menu_page(__('Carousel Slideshow'), __('Carousel Slideshow'), 8, 'carousel_menu', create_function('', 'require_once CRS_PLUGIN_DIR . "/html/about.php";'));
+		add_submenu_page('carousel_menu', __('Carousel Slideshow Setting'), __('About'), 8, 'carousel_menu', 
+							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/about.php";'));
+		add_submenu_page('carousel_menu', __('Carousel Slideshow Setting'), __('Settings'), 8, 'carousel_settings', 
+							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/settings.php";'));
+		add_submenu_page('carousel_menu', __('Carousel Slideshow Management'), __('Album Management'), 8, 'carousel_manage', 
+							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/manage.php";'));
+		add_submenu_page('carousel_menu', __('Carousel Slideshow Cache'), __('Delete Cache'), 8, 'carousel_cache', 
+							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/cache.php";'));
 	}
-	public function admin_head()
+	public function carousel_admin_head()
 	{
 		print '<script type="text/javascript">
-			var pp_url = "'.PPLAY_PLUGIN_URL.'";
+			var carousel_url = "'.CRS_PLUGIN_URL.'";
 			</script>';
 	}
 	public function admin_notices()
@@ -128,12 +128,16 @@ class PPlay
 	/**
 	 * Here start all tasks methods
 	 */
-	public function add_new_album()
+	public function carousel_add_new_album()
 	{
 		global $wpdb;
-		$album_id = isset($_POST['album_id']) ? $_POST['album_id'] : null;
+		$album_id = isset($_POST['album_id']) ? (int)$_POST['album_id'] : null;
 		$album_name = trim($_POST['album_name']);
 		$album_desc = trim($_POST['album_desc']);
+		if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() != 1) {
+			//$album_name = addslashes($album_name);
+			//$album_desc = addslashes($album_desc);
+		}
 		$album = null;
 		$album_dir = null;
 		//edit album
@@ -150,7 +154,7 @@ class PPlay
 				die('album not found'. $query);
 				
 			}
-			$album_dir = pp_get_album_dir($album->album_id);
+			$album_dir = carousel_get_album_dir($album->album_id);
 			//delete album images if new one will be uploaded
 			if( isset($_FILES) && isset($_FILES['album_img']) && $_FILES['album_img']['size'] > 0 )
 			{
@@ -168,7 +172,7 @@ class PPlay
 			$wpdb->insert($wpdb->prefix.'carousel_albums', $album);
 			//get album id
 			$album_id = $wpdb->insert_id;
-			$album_dir = pp_get_album_dir($album_id);
+			$album_dir = carousel_get_album_dir($album_id);
 			if( !is_dir( $album_dir ) )
 				mkdir($album_dir);
 			if( !is_dir($album_dir . '/big') )
@@ -179,7 +183,7 @@ class PPlay
 		//upload images
 		if( isset($_FILES) && isset($_FILES['album_img']) && $_FILES['album_img']['size'] > 0 )
 		{
-			//die(PPLAY_PLUGIN_UPLOADS_DIR . '/' . $album_dir);
+			//die(CRS_PLUGIN_UPLOADS_DIR . '/' . $album_dir);
 			if( !is_dir( $album_dir ) )
 				mkdir($album_dir);
 			if( !is_dir($album_dir . '/big') )
@@ -211,7 +215,7 @@ class PPlay
 		$wpdb->update($wpdb->prefix.'carousel_albums', $album, array('album_id' => $album_id));
 		if( isset($_REQUEST['TB_iframe']))
 		{
-			$js = '<script type="text/javascript">self.parent.tb_remove();self.parent.pp_refresh_albums_table();</script>';
+			$js = '<script type="text/javascript">self.parent.tb_remove();self.parent.carousel_refresh_albums_table();</script>';
 			die($js);
 		}
 	}
@@ -220,7 +224,7 @@ class PPlay
 	 * @param $json
 	 * @return unknown_type
 	 */
-	public function delete_album($json = true)
+	public function carousel_delete_album($json = true)
 	{
 		global $wpdb;
 		
@@ -228,7 +232,7 @@ class PPlay
 		if( $key == null ) return false;
 		
 		//check if album exists
-		if( ($album = $this->get_album($key)) == null )
+		if( ($album = $this->carousel_get_album($key)) == null )
 		{
 			//album not found or not exists
 			$this->json_response(array('status' => 'error', 'message' => 'The album id does not exists'));
@@ -240,7 +244,7 @@ class PPlay
 			//error: the album contains images
 			$this->json_response(array('status' => 'error', 'message' => 'The album is not empty, please delete all images first'));
 		}
-		$album_dir = pp_get_album_dir($key);
+		$album_dir = carousel_get_album_dir($key);
 		if( file_exists($album_dir .'/big/'.$album['image']) )
 			unlink($album_dir .'/big/'.$album['image']);
 		if( file_exists($album_dir .'/thumb/'.$album['thumb']) )
@@ -258,24 +262,24 @@ class PPlay
 	}
 	public function reset_albums(){update_option('carousel_albums', array());delete_option('carousel_albums');}
 	/**
-	 * Save Carousel setttings
+	 * Save Carousel Slideshow setttings
 	 * 
 	 * @return unknown_type
 	 */
-	public function save_pp_settings()
+	public function save_carousel_settings()
 	{
 		$ops = array();
 		foreach($_POST['settings'] as $key => $value)
 		{
 			$ops[$key] = trim($value);
 		}
-		update_option('pp_settings', $ops);
+		update_option('carousel_settings', $ops);
 		/*
 insert xml code part
 		*/
 
 	}
-	public function single_image_upload()
+	public function carousel_single_image_upload()
 	{
 		global $wpdb; 
 		
@@ -283,6 +287,7 @@ insert xml code part
 		$title = trim($_REQUEST['image_title']);
 		$desc = isset($_REQUEST['image_description']) ? trim($_REQUEST['image_description']) : '';
 		$price = isset($_REQUEST['image_price']) ? trim($_REQUEST['image_price']) : 0;
+		$price = (is_numeric($price)) ? $price : 0;
 		$thumb = isset($_REQUEST['image_thumb']) ? trim($_REQUEST['image_thumb']) : 'generate';
 		$link = isset($_REQUEST['image_link']) ? trim($_REQUEST['image_link']) : '';
 		//for update
@@ -296,7 +301,7 @@ insert xml code part
 		if( $image_id !== null )
 		{
 			//die('editing image'. $image_id);
-			if( !($album = $this->get_album($album_id)) )
+			if( !($album = $this->carousel_get_album($album_id)) )
 			{
 				die(__('Incorrect album or does not exists'));
 				return false;
@@ -306,24 +311,24 @@ insert xml code part
 			if( isset($_FILES) && $_FILES['image_file']['size'] > 0 )
 			{
 				//delete images becuase new one will be uploaded
-				if( file_exists(pp_get_album_dir($album_id) . '/big/' . $_image->image) )
+				if( file_exists(carousel_get_album_dir($album_id) . '/big/' . $_image->image) )
 				{
-					unlink(pp_get_album_dir($album_id) . '/big/' . $_image->image);
+					unlink(carousel_get_album_dir($album_id) . '/big/' . $_image->image);
 				}
 			}
 			if( $thumb == 'upload' && $_FILES['image_file_thumb']['size'] > 0 )
 			{
 				//delete thumb images
-				if( file_exists(pp_get_album_dir($album_id) . '/thumb/' . $_image->thumb) )
+				if( file_exists(carousel_get_album_dir($album_id) . '/thumb/' . $_image->thumb) )
 				{
-					unlink(pp_get_album_dir($album_id) . '/thumb/' . $_image->thumb);
+					unlink(carousel_get_album_dir($album_id) . '/thumb/' . $_image->thumb);
 				}
 			}
 		} 
 		//add new image
 		else
 		{
-			if( !($album = $this->get_album($album_id)) )
+			if( !($album = $this->carousel_get_album($album_id)) )
 			{
 				$this->messages['upload'][] = __('Incorrect album');
 				return false;
@@ -356,7 +361,7 @@ insert xml code part
 		}
 		//print_r($_REQUEST);die();
 		//get album dir
-		$album_dir = pp_get_album_dir($album_id);
+		$album_dir = carousel_get_album_dir($album_id);
 		
 		$image_file = $thumb_file = null;
 		if( isset($_FILES) && $_FILES['image_file']['size'] > 0 )
@@ -413,7 +418,7 @@ insert xml code part
 		
 		if( isset($_REQUEST['TB_iframe']))
 		{
-			$js = '<script type="text/javascript">self.parent.tb_remove();self.parent.pp_refresh_images_table("'.$album_id.'");</script>';
+			$js = '<script type="text/javascript">self.parent.tb_remove();self.parent.carousel_refresh_images_table("'.$album_id.'");</script>';
 			die($js);
 		}
 	}
@@ -421,11 +426,12 @@ insert xml code part
 	 * 
 	 * @return unknown_type
 	 */
-	public function resize_image_and_add()
+	public function carousel_resize_image_and_add()
 	{
 		global $wpdb;
 		
 		$price = trim($_REQUEST['image_price']);
+		$price = (is_numeric($price)) ? $price : 0;
 		$album_id = isset($_REQUEST['album_id']) ? (int)$_REQUEST['album_id'] : null;
 		$full_filename = $_REQUEST['filename'];
 		$cpage = $_REQUEST['cpage'];
@@ -438,9 +444,9 @@ insert xml code part
 		}
 		//$title = substr(basename($full_filename), 0, (strrpos(basename($full_filename), '.') - 1));
 		$title = substr(basename($full_filename), 0, (strrpos(basename($full_filename), '.')));
-		$album_dir = pp_get_album_dir($album_id);
+		$album_dir = carousel_get_album_dir($album_id);
 		$image_file = basename($full_filename);
-		$album = $this->get_album($album_id);
+		$album = $this->carousel_get_album($album_id);
 		if( !$album )
 		{
 			$this->json_response(array('status' => 'error', 'message' => 'The album image does not exists'));
@@ -465,37 +471,37 @@ insert xml code part
 					<td><input type="checkbox" name="image_'.$image_id.'" value="'.$image_id.'" /></td>
 					<td>'.$image_id.'</td>
 					<td>'.$image['title'].'</td>
-					<td><img src="'.pp_get_album_url($album_id). '/' . $image['thumb'].'" alt="" /></td>
+					<td><img src="'.carousel_get_album_url($album_id). '/' . $image['thumb'].'" alt="" /></td>
 					<td>'.$image['description'].'</td>
 					<td>'.$image['price'].'</td>
 					<td>
 						<form action="" method="post" class="order_form">
-							<input type="hidden" name="task" value="reorder_image" />
+							<input type="hidden" name="task" value="carousel_reorder_image" />
 							<input type="hidden" name="album_id" value="'.$album['album_id'].'" />
 							<input type="hidden" name="image_id" value="'.$image_id.'" />
 							<input type="text" name="img_order" value="0" class="image_order" />
 						</form>
 					</td>
 					<td>
-						<a href="'.$cpage.'&view='.$view.'&task=disable_image&album_id='.$album_id.'&pp_image_id='.$image_id.'">
+						<a href="'.$cpage.'&view='.$view.'&task=carousel_disable_image&album_id='.$album_id.'&carousel_image_id='.$image_id.'">
 							'.__('Disable').'
 						</a>&nbsp;
 						<a class="thickbox" 
-							href="'.PPLAY_PLUGIN_URL .'/html/edit_image.php?album_id='.$album_id.'&pp_image_id='.$image_id.'&KeepThis=true&TB_iframe=true&height=400&width=600">
+							href="'.CRS_PLUGIN_URL .'/html/edit_image.php?album_id='.$album_id.'&carousel_image_id='.$image_id.'&KeepThis=true&TB_iframe=true&height=400&width=600">
 							'.__('Edit').'
 						</a>
-						<a href="'.$cpage.'&view='.$view.'&task=pp_delete_image&album_key='.$album_id.'&pp_image_id='.$image_id.'">
+						<a href="'.$cpage.'&view='.$view.'&task=carousel_delete_image&album_key='.$album_id.'&carousel_image_id='.$image_id.'">
 							'.__('Delete').'</a>&nbsp;
 					</td>
 				</tr>';
 		$res = array('status' => 'ok', 'row' => $row);
 		$this->json_response($res);
 	}
-	public function pp_delete_image()
+	public function carousel_delete_image()
 	{
-		$album_id = trim($_REQUEST['album_id']);
-		$image_id = (int)$_REQUEST['pp_image_id'];
-		$album = $this->get_album($album_id);
+		$album_id = (int)trim($_REQUEST['album_id']);
+		$image_id = (int)$_REQUEST['carousel_image_id'];
+		$album = $this->carousel_get_album($album_id);
 		if( !$album )
 		{
 			$this->messages['upload'][] = __('Incorrect album');
@@ -510,37 +516,37 @@ insert xml code part
 		$this->delete_image($image_id);
 		$this->messages['upload'][] = __('Album image deleted');
 	}
-	public function get_albums_table()
+	public function carousel_get_albums_table()
 	{
 		global $wpdb;
 		$query = "SELECT * FROM {$wpdb->prefix}carousel_albums ORDER BY `order` ASC";
 		$albums = $wpdb->get_results($query, ARRAY_A);
 		
 		ob_start();
-		require_once PPLAY_PLUGIN_DIR . '/html/albums_rows.php';
+		require_once CRS_PLUGIN_DIR . '/html/albums_rows.php';
 		$rows = ob_get_clean();
 		$json = json_encode(array('status' => 'ok', 'rows' => $rows));
 		header('Content-type: application/json');
 		die($json);
 	}
-	public function get_albums_images_table()
+	public function carousel_get_albums_images_table()
 	{
-		$album_id = isset($_REQUEST['album_id']) ? $_REQUEST['album_id'] : null;
+		$album_id = isset($_REQUEST['album_id']) ? (int)$_REQUEST['album_id'] : null;
 		
 		if( $album_id == null )
 		{
 			$this->json_response(array('status' => 'error', 'message' => 'Invalid image id'));
 		}
-		$album = $this->get_album($album_id);
+		$album = $this->carousel_get_album($album_id);
 		if( !$album )
 		{
 			$this->json_response(array('status' => 'error', 'message' => 'The album does not exists'));
 		}
-		$images = $this->get_album_images($album_id);
+		$images = $this->carousel_get_album_images($album_id);
 		$cpage = 'admin.php?page=carousel_manage';
 		$_REQUEST['view'] = 'manage_album';
 		ob_start();
-		require_once PPLAY_PLUGIN_DIR . '/html/images_rows.php';
+		require_once CRS_PLUGIN_DIR . '/html/images_rows.php';
 		$rows = ob_get_clean();
 		$this->json_response(array('status' => 'ok', 'rows' => $rows));
 	}
@@ -555,7 +561,7 @@ insert xml code part
 	public function activate()
 	{
 		global $wpdb;
-		$query = array(); 
+		$query = array();
 		$query[] = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}carousel_albums(album_id bigint not null auto_increment, 
 							name varchar(150), 
 							description varchar(500),
@@ -584,19 +590,19 @@ insert xml code part
 			$wpdb->query($q);
 		}
 		//create folders
-		if( !is_dir(PPLAY_PLUGIN_UPLOADS_DIR) )
+		if( !is_dir(CRS_PLUGIN_UPLOADS_DIR) )
 		{
-			mkdir(PPLAY_PLUGIN_UPLOADS_DIR);
-			chmod(PPLAY_PLUGIN_UPLOADS_DIR, 0777);					
+			mkdir(CRS_PLUGIN_UPLOADS_DIR);
+			chmod(CRS_PLUGIN_UPLOADS_DIR, 0777);					
 		}
-		if( !is_dir(PPLAY_PLUGIN_XML_DIR) )
+		if( !is_dir(CRS_PLUGIN_XML_DIR) )
 		{
-			mkdir(PPLAY_PLUGIN_XML_DIR);
-			chmod(PPLAY_PLUGIN_XML_DIR, 0777);
+			mkdir(CRS_PLUGIN_XML_DIR);
+			chmod(CRS_PLUGIN_XML_DIR, 0777);
 		} 
 		$this->def_settings = carousel_get_def_settings();
 		//store default settings
-		add_option('pp_settings', $this->def_settings);
+		add_option('carousel_settings', $this->def_settings);
 	}
 	public function deactivate()
 	{
@@ -605,16 +611,17 @@ insert xml code part
 		$wpdb->query($query);
 		$query = "DROP TABLE {$wpdb->prefix}carousel_images";
 		$wpdb->query($query);
-		delete_option('pp_settings');
+		delete_option('carousel_settings');
 	}
 	/**
 	 * Get album from id
 	 * @param $album_id
 	 * @return null on album not found or associative array on album found
 	 */
-	public function get_album($album_id)
+	public function carousel_get_album($album_id)
 	{
 		global $wpdb;
+		$album_id = (int)$album_id;
 		$query = "SELECT album_id, name, description, image, thumb, `order`, status, creation_date
 					FROM {$wpdb->prefix}carousel_albums
 					WHERE album_id = $album_id
@@ -624,10 +631,10 @@ insert xml code part
 			return null;
 		return $album;	
 	}
-	public function get_album_images($album_id)
+	public function carousel_get_album_images($album_id)
 	{
 		global $wpdb;
-		
+		$album_id = (int)$album_id;
 		$query = "SELECT image_id, category_id, title, description, price, thumb, image, status, `order`, link, creation_date
 					FROM {$wpdb->prefix}carousel_images
 					WHERE category_id = $album_id
@@ -640,7 +647,7 @@ insert xml code part
 	public function get_image($image_id)
 	{
 		global $wpdb;
-		
+		$image_id = (int)$image_id;
 		$query = "SELECT image_id, category_id, title, description, price, thumb, image, status, `order`, creation_date
 					FROM {$wpdb->prefix}carousel_images
 					WHERE image_id = $image_id
@@ -650,19 +657,19 @@ insert xml code part
 			return null;
 		return $image;
 	}
-	public function pp_delete_cache()
+	public function carousel_delete_cache()
 	{
 		if( !isset($_REQUEST['delete_cache']) ) return null;
-		$dh = opendir(PPLAY_PLUGIN_XML_DIR);
+		$dh = opendir(CRS_PLUGIN_XML_DIR);
 		while(($file = readdir($dh)) !== false)
 		{
 			if( $file{0} == '.' ) continue;
-			unlink(PPLAY_PLUGIN_XML_DIR . '/' . $file);
+			unlink(CRS_PLUGIN_XML_DIR . '/' . $file);
 		}
 		closedir($dh);
 		$this->messages['cache'] = array('The cache has benn deleted!!!');
 	}
-	public function reorder_image()
+	public function carousel_reorder_image()
 	{
 		global $wpdb;
 		
@@ -670,15 +677,15 @@ insert xml code part
 		$image_id = (int)$_REQUEST['image_id'];
 		$img_order = (int)$_REQUEST['img_order'];
 		$wpdb->update($wpdb->prefix.'carousel_images', array('order' => $img_order), array('image_id' => $image_id));
-	} 
-	public function reorder_album()
+	}
+	public function carousel_reorder_album()
 	{
 		global $wpdb;
 		$album_id = (int)$_REQUEST['album_id'];
 		$album_order = (int)$_REQUEST['album_order'];
 		$wpdb->update($wpdb->prefix.'carousel_albums', array('order' => $album_order), array('album_id' => $album_id));
 	}
-	public function bulk_delete_albums()
+	public function carousel_bulk_delete_albums()
 	{
 		global $wpdb;
 		
@@ -690,13 +697,13 @@ insert xml code part
 		$error = '';
 		foreach($ids as $id)
 		{
-			if( $this->get_album_images($id) != null )
+			if( $this->carousel_get_album_images($id) != null )
 			{
 				$error .= 'The category '. $id . ' is not empty, please delete the images first';
 				continue;
 			}
 			$_REQUEST['album_id'] = $id;
-			$this->delete_album(false);
+			$this->carousel_delete_album(false);
 		}
 		$res = array('status' => 'ok', 'message' => 'Categories deleted');
 		if( !empty($error) )
@@ -706,21 +713,21 @@ insert xml code part
 		}
 		$this->json_response($res); 
 	}
-	public function bulk_disable_albums()
+	public function carousel_bulk_disable_albums()
 	{
 		$ids = json_decode($_REQUEST['ids']);
 		foreach($ids as $id)
 		{
-			$this->disable_album($id);
+			$this->carousel_disable_album($id);
 		}
 		$this->json_response(array('status' => 'ok'));
 	}
-	public function bulk_enable_albums()
+	public function carousel_bulk_enable_albums()
 	{
 		$ids = json_decode($_REQUEST['ids']);
 		foreach($ids as $id)
 		{
-			$this->enable_album($id);
+			$this->carousel_enable_album($id);
 		}
 		$this->json_response(array('status' => 'ok'));
 	}
@@ -729,13 +736,13 @@ insert xml code part
 		global $wpdb;
 		$image = $this->get_image($image_id);
 		if( !$image ) return null;
-		$album_dir = pp_get_album_dir($image['category_id']);
+		$album_dir = carousel_get_album_dir($image['category_id']);
 		@unlink($album_dir .'/big/'. $image['image']);
 		@unlink($album_dir .'/thumb/'. $image['thumb']);
 		$wpdb->query("DELETE FROM {$wpdb->prefix}carousel_images WHERE image_id = $image_id LIMIT 1");
 		return true;
 	}
-	public function bulk_delete_images()
+	public function carousel_bulk_delete_images()
 	{
 		$ids = json_decode($_REQUEST['ids']);
 		$msg = '';
@@ -752,58 +759,58 @@ insert xml code part
 		}
 		$this->json_response($res);
 	}
-	public function bulk_disable_images()
+	public function carousel_bulk_disable_images()
 	{
 		$ids = json_decode($_REQUEST['ids']);
 		foreach($ids as $id)
 		{
-			$this->disable_image($id);
+			$this->carousel_disable_image($id);
 		}
 		$this->json_response(array('status' => 'ok'));
 	}
-	public function bulk_enable_images()
+	public function carousel_bulk_enable_images()
 	{
 		$ids = json_decode($_REQUEST['ids']);
 		foreach($ids as $id)
 		{
-			$this->enable_image($id);
+			$this->carousel_enable_image($id);
 		}
 		$this->json_response(array('status' => 'ok'));
 	}
-	public function disable_album($album_id = null)
+	public function carousel_disable_album($album_id = null)
 	{
 		global $wpdb;
-		
+		$album_id = (int)$album_id;
 		$album_id = isset($_REQUEST['album_id']) ? (int)$_REQUEST['album_id'] : $album_id;
 		if( $album_id )
 		{
 			$wpdb->update($wpdb->prefix.'carousel_albums', array('status' => 0), array('album_id' => $album_id));
 		}
 	}
-	public function enable_album($album_id = null)
+	public function carousel_enable_album($album_id = null)
 	{
 		global $wpdb;
-		
+		$album_id = (int)$album_id;
 		$album_id = isset($_REQUEST['album_id']) ? (int)$_REQUEST['album_id'] : $album_id;
 		if( $album_id )
 			$wpdb->update($wpdb->prefix.'carousel_albums', array('status' => 1), array('album_id' => $album_id));
 	}
-	public function disable_image($image_id = null)
+	public function carousel_disable_image($image_id = null)
 	{
 		global $wpdb;
-		
-		$image_id = isset( $_REQUEST['pp_image_id'] ) ? (int)$_REQUEST['pp_image_id'] : $image_id;
+		$image_id = (int)$image_id;
+		$image_id = isset( $_REQUEST['carousel_image_id'] ) ? (int)$_REQUEST['carousel_image_id'] : $image_id;
 		if( $image_id)
 			$wpdb->update($wpdb->prefix.'carousel_images', array('status' => 0), array('image_id' => $image_id));
 	}
-	public function enable_image($image_id = null)
+	public function carousel_enable_image($image_id = null)
 	{
 		global $wpdb;
-		
-		$image_id = isset($_REQUEST['pp_image_id']) ? (int)$_REQUEST['pp_image_id'] : $image_id;
+		$image_id = (int)$image_id;
+		$image_id = isset($_REQUEST['carousel_image_id']) ? (int)$_REQUEST['carousel_image_id'] : $image_id;
 		if( $image_id )
 			$wpdb->update($wpdb->prefix.'carousel_images', array('status' => 1), array('image_id' => $image_id));
 	}
 }
-$gpp = new PPlay();
+$gcrs = new CarouselSideshow();
 ?>

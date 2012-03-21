@@ -1,18 +1,18 @@
 <?php
 //print_r($album);
-global $gpp;
+global $gcrs;
 
 ?>
-<?php if(isset($gpp->messages['upload']) && is_array($gpp->messages['upload']) && count($gpp->messages['upload']) > 0): ?>
+<?php if(isset($gcrs->messages['upload']) && is_array($gcrs->messages['upload']) && count($gcrs->messages['upload']) > 0): ?>
 <div class="updated">
 <p class="">
-<?php foreach($gpp->messages['upload'] as $msg): ?>
+<?php foreach($gcrs->messages['upload'] as $msg): ?>
 	<span><?php print $msg; ?></span><br/>
 <?php endforeach;?>
 </p>
 </div>
 <?php endif; ?>
-<script type="text/javascript">var pp_current_album_id = <?php print $album['album_id']; ?>;</script>
+<script type="text/javascript">var carousel_current_album_id = <?php print $album['album_id']; ?>;</script>
 <div class="dataTable_wrapper">
 	<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix">
 		<div id="album_images_length" class="dataTables_length">
@@ -29,9 +29,9 @@ global $gpp;
 				</label>
 			</form>
 		</div>&nbsp;&nbsp;&nbsp;
-		<?php pp_get_table_actions(array('bulk_delete_images' => 'Delete', 
-											'bulk_disable_images' => 'Disable', 
-											'bulk_enable_images' => 'Enable')); ?>
+		<?php carousel_get_table_actions(array('carousel_bulk_delete_images' => 'Delete', 
+											'carousel_bulk_disable_images' => 'Disable', 
+											'carousel_bulk_enable_images' => 'Enable')); ?>
 	</div>
 	<table class="widefat data-table" id="album_images">
 	<thead>
@@ -47,7 +47,7 @@ global $gpp;
 	</tr>
 	</thead>
 	<tbody>
-	<?php require_once PPLAY_PLUGIN_DIR . '/html/images_rows.php'; ?>
+	<?php require_once CRS_PLUGIN_DIR . '/html/images_rows.php'; ?>
 	</tbody>
 	</table>
 	<div id="images_pager" class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix"></div>
@@ -60,7 +60,7 @@ global $gpp;
 <div id="tabs_container">
 <div id="single_upload" class="tab_content">
 	<form id="single_upload_form" action="" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="task" value="single_image_upload" />
+		<input type="hidden" name="task" value="carousel_single_image_upload" />
 		<input type="hidden" id="single_album_key" name="album_id" value="<?php print $album['album_id']; ?>" />
 		<table>
 		<tr>
@@ -160,7 +160,7 @@ global $gpp;
 
 	</form>
 	<script type="text/javascript">
-	var pp_upload_dir = "<?php  /* add the replace "\\" to work on windows server */  print str_replace("\\","/",pp_get_album_dir($album['album_id'])); ?>";
+	var carousel_upload_dir = "<?php  /* add the replace "\\" to work on windows server */  print str_replace("\\","/",carousel_get_album_dir($album['album_id'])); ?>";
 	</script>
 </div><!-- end id="single_upload" -->
 </div><!-- end id="tab_container" -->

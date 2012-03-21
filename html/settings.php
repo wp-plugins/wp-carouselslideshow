@@ -1,12 +1,12 @@
 <?php
-global $wpdb, $gpp;
-$ops = get_option('pp_settings', array());
-//$ops = array_merge($pp_settings, $ops);
+global $wpdb, $gcrs;
+$ops = get_option('carousel_settings', array());
+//$ops = array_merge($carousel_settings, $ops);
 ?>
 <div class="wrap">
 	<h2><?php _e('Create XML File'); ?></h2>
 	<form action="" method="post">
-		<input type="hidden" name="task" value="save_pp_settings" />
+		<input type="hidden" name="task" value="save_carousel_settings" />
 		<table>
 		<tr>
 			<td><?php _e('Slideshow Width (px)'); ?></td>

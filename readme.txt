@@ -83,17 +83,20 @@ Installation Video: https://www.youtube.com/watch?v=wTrnNunHd74
 
 == change log ==
 
-1.0
- Initial released version
+=1.0=
+Initial released version
 
-2.0
+=2.0=
 Added customizable option for enable/disbale snow effect on the slidehsow.
 
-3.0
+=3.0=
 fixed bug enable/disable description on the slideshow.
 
-3.5
+=3.5=
 This is entirely new build. It is not possible to upgrade from old version to this version. You need to uninstall old version an dinstall the new version.
 
-3.6
+=3.6=
 Fixed few settings
+
+=3.7=
+Fixed security issues.

@@ -28,7 +28,7 @@ function on_upload_success(file, serverData)
 		progress.setStatus("Complete.");
 		progress.toggleCancel(false);
 	test=file;
-	var params = 'myajax=1&filename='+ pp_upload_dir+"/"+file.name + '&task=resize_image_and_add&album_id='+jQuery('#multi_album_id').val();
+	var params = 'myajax=1&filename='+ carousel_upload_dir+"/"+file.name + '&task=carousel_resize_image_and_add&album_id='+jQuery('#multi_album_id').val();
 	params += '&image_price='+jQuery('#multi_image_price').val() + '&cpage='+
 				jQuery('#cpage').val()+'&view='+jQuery('#view').val();
 	jQuery.ajax({
@@ -54,7 +54,7 @@ function on_upload_success(file, serverData)
 function on_queue_completed(file)
 {
 	__log('Queue completed');
-	pp_refresh_images_table(pp_current_album_id);
+	carousel_refresh_images_table(carousel_current_album_id);
 	
 	return 1;	
 }
@@ -70,13 +70,13 @@ function on_remove_file()
 		queue_files = 0;
 	jQuery('#queue_files').html(queue_files);
 }
-function pp_refresh_albums_table()
+function carousel_refresh_albums_table()
 {
 	jQuery('#albums_table tbody').html('<tr><td colspan="7" align="center"><img src="'+loading.src+'" alt="" /><br/>Please wait, refreshing albums</td></tr>');
 	//sleep(2000);
-	jQuery.post('index.php', 'task=get_albums_table', function(res)
+	jQuery.post('index.php', 'task=carousel_get_albums_table', function(res)
 	{
-		pp_set_data_tables();
+		carousel_set_data_tables();
 		if (res.status == 'ok') 
 		{
 			jQuery('#albums_table tbody').html(res.rows);
@@ -87,12 +87,12 @@ function pp_refresh_albums_table()
 		}
 	});
 }
-function pp_refresh_images_table(album_id)
+function carousel_refresh_images_table(album_id)
 {
 	jQuery('#album_images tbody').html('<tr><td colspan="8" align="center"><img src="'+loading.src+'" alt="" /><br/>Please wait, refreshing album images</td></td></tr>');
-	jQuery.post('index.php', 'task=get_albums_images_table&album_id='+album_id, function(res)
+	jQuery.post('index.php', 'task=carousel_get_albums_images_table&album_id='+album_id, function(res)
 	{
-		pp_set_data_tables();
+		carousel_set_data_tables();
 		if (res.status == 'ok') 
 		{
 			jQuery('#album_images tbody').html(res.rows);
@@ -103,7 +103,7 @@ function pp_refresh_images_table(album_id)
 		}
 	});
 }
-function pp_delete_album()
+function carousel_delete_album()
 {
 	var res = confirm('Are you sure to cotinue deleteing this album?');
 	if( res )
@@ -112,7 +112,7 @@ function pp_delete_album()
 		{
 			if( res.status == 'ok')
 			{
-				pp_refresh_albums_table();
+				carousel_refresh_albums_table();
 			}
 			else
 			{
@@ -126,29 +126,29 @@ function re_order()
 {
 	var album_id = this.album_id.value;
 	var task = this.task.value;
-	if( task == 'reorder_album' )
+	if( task == 'carousel_reorder_album' )
 		jQuery('#albums_table tbody').html('<tr><td colspan="7" align="center"><img src="'+loading.src+'" alt="" /><br/>Please wait, refreshing albums</td></tr>');
-	if( task == 'reorder_image' )
+	if( task == 'carousel_reorder_image' )
 		jQuery('#album_images tbody').html('<tr><td colspan="8" align="center"><img src="'+loading.src+'" alt="" /><br/>Please wait, refreshing albums</td></tr>');
 	var params = jQuery(this).serialize();
 	jQuery.get('index.php?' + params, function(res)
 	{
-		if( task == 'reorder_image' )
+		if( task == 'carousel_reorder_image' )
 		{
-			pp_refresh_images_table(album_id);
+			carousel_refresh_images_table(album_id);
 		}
-		if( task == 'reorder_album' )
-			pp_refresh_albums_table();
+		if( task == 'carousel_reorder_album' )
+			carousel_refresh_albums_table();
 			
 	});
 	return false;
 }
 var tpager = null;
 var ipager = null;
-function pp_set_data_tables()
+function carousel_set_data_tables()
 {
 	//add event to bulk actions
-	jQuery('.bulk_form').live('submit', pp_submit_bulk);
+	jQuery('.bulk_form').live('submit', carousel_submit_bulk);
 	if( document.getElementById('albums_table') != null )
 	{
 		tpager = new Pager('albums_table', def_rows_per_page);
@@ -164,11 +164,11 @@ function pp_set_data_tables()
 		ipager.showPage(1);	
 	}
 }
-function pp_submit_bulk()
+function carousel_submit_bulk()
 {
 	var task = this.task.value;
 	var album_id = null;
-	if( task == 'bulk_delete_albums' || task == 'bulk_enable_albums' || task == 'bulk_disable_albums')
+	if( task == 'carousel_bulk_delete_albums' || task == 'carousel_bulk_enable_albums' || task == 'carousel_bulk_disable_albums')
 	{
 		var selected = jQuery('table#albums_table tbody input[type=checkbox]:checked');
 		//delete selected albums
@@ -185,14 +185,14 @@ function pp_submit_bulk()
 		jQuery('#albums_table tbody').html('<tr><td colspan="7" align="center"><img src="'+loading.src+'" alt="" /><br/>Please wait, refreshing albums</td></tr>');
 		jQuery.post('index.php', 'task='+task+'&ids='+ids, function(res)
 		{
-				pp_refresh_albums_table();
+				carousel_refresh_albums_table();
 				if( res.status == 'error')
 				{
 					alert(res.message);
 				}
 		});
 	}
-	else if( task == 'bulk_delete_images' || task == 'bulk_enable_images' || task == 'bulk_disable_images' )
+	else if( task == 'carousel_bulk_delete_images' || task == 'carousel_bulk_enable_images' || task == 'carousel_bulk_disable_images' )
 	{
 		var selected = jQuery('table#album_images tbody input[type=checkbox]:checked');
 		if( selected.length <= 0 )
@@ -212,7 +212,7 @@ function pp_submit_bulk()
 		jQuery('#album_images tbody').html('<tr><td colspan="8" align="center"><img src="'+loading.src+'" alt="" /><br/>Please wait, refreshing albums</td></tr>');
 		jQuery.post('index.php', 'task='+task+'&ids='+ids, function(res)
 		{
-			pp_refresh_images_table(pp_current_album_id);
+			carousel_refresh_images_table(carousel_current_album_id);
 			if( res.status == 'error')
 			{
 				alert(res.message);
@@ -253,33 +253,33 @@ function set_table_rows(table, rows, pager_id)
 	
 	return true;
 }
-function pp_enable()
+function carousel_enable()
 {
 	var page = jQuery(this).attr('href');
 	if( jQuery(this).hasClass('album') )
 	{
 		jQuery.get(page, function(res)
 		{
-			pp_refresh_albums_table();	
+			carousel_refresh_albums_table();	
 		});
 	}
 	else if( jQuery(this).hasClass('image') )
 	{
 		jQuery.get(page, function(res)
 		{
-			pp_refresh_images_table(pp_current_album_id);	
+			carousel_refresh_images_table(carousel_current_album_id);	
 		});
 	}	
 	return false;
 }
-function pp_disable()
+function carousel_disable()
 {
 	var page = jQuery(this).attr('href');
 	if( jQuery(this).hasClass('album') )
 	{
 		jQuery.get(page, function(res)
 		{
-			pp_refresh_albums_table();	
+			carousel_refresh_albums_table();	
 		});
 		
 	}
@@ -287,7 +287,7 @@ function pp_disable()
 	{
 		jQuery.get(page, function(res)
 		{
-			pp_refresh_images_table(pp_current_album_id);	
+			carousel_refresh_images_table(carousel_current_album_id);	
 		});
 		
 	}	
@@ -296,7 +296,7 @@ function pp_disable()
 jQuery(function($)
 {
 	//preload images
-	loading.src = pp_url + '/images/loading.gif';
+	loading.src = carousel_url + '/images/loading.gif';
 	
 	jQuery('#add_new_album').toggle(function()
 	{
@@ -329,10 +329,10 @@ jQuery(function($)
 	{
 /*
 		var ops = {
-					'uploader'		: pp_url + '/js/uploadify-2.1.4/uploadify.swf',
-					'script'		: pp_url + '/js/uploadify-2.1.4/uploadify.php',
-					'cancelImg' 	: pp_url + '/js/uploadify-2.1.4/cancel.png',
-				    'folder'    	: pp_upload_dir,
+					'uploader'		: carousel_url + '/js/uploadify-2.1.4/uploadify.swf',
+					'script'		: carousel_url + '/js/uploadify-2.1.4/uploadify.php',
+					'cancelImg' 	: carousel_url + '/js/uploadify-2.1.4/cancel.png',
+				    'folder'    	: carousel_upload_dir,
 				    'auto'			: true,
 					'multi'			: true,
 					'fileExt'        : '*.jpg;*.gif;*.png',
@@ -352,9 +352,9 @@ jQuery(function($)
 
 
 			var settings = {
-				flash_url : pp_url+"/js/swfupload/js/swfupload.swf",
-				upload_url: pp_url+"/js/swfupload/js/upload.php",
-				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>","folder":pp_upload_dir},
+				flash_url : carousel_url+"/js/swfupload/js/swfupload.swf",
+				upload_url: carousel_url+"/js/swfupload/js/upload.php",
+				post_params: {"PHPSESSID" : "<?php echo session_id(); ?>","folder":carousel_upload_dir},
 				file_size_limit : "100 MB",
 				file_types : "*.*",
 				file_types_description : "All Files",
@@ -367,7 +367,7 @@ jQuery(function($)
 				debug: false,
 
 				// Button settings
-				button_image_url: pp_url+"/js/swfupload/js/TestImageNoText_65x29.png",
+				button_image_url: carousel_url+"/js/swfupload/js/TestImageNoText_65x29.png",
 				button_width: "130",
 				button_height: "29",
 				button_placeholder_id: "spanButtonPlaceHolder",
@@ -394,9 +394,9 @@ jQuery(function($)
 	}
 	jQuery('.confirmation').click(__confirmation);
 	
-	pp_set_data_tables();
+	carousel_set_data_tables();
 	//add delete album event
-	jQuery('.delete_album').live('click', pp_delete_album);
+	jQuery('.carousel_delete_album').live('click', carousel_delete_album);
 	//set event for reorder forms
 	jQuery('.order_form').live('submit', re_order);
 	//reset checkbox
@@ -404,8 +404,8 @@ jQuery(function($)
 	//set bulk event
 	jQuery('.select_all_images').bind('mouseup',select_all_images);//, deselect_all_images);
 	//set enable disable album event
-	jQuery('table#album_images .enable, table#albums_table .enable').live('click', pp_enable);
-	jQuery('table#album_images .disable, table#albums_table .disable').live('click', pp_disable);
+	jQuery('table#album_images .enable, table#albums_table .enable').live('click', carousel_enable);
+	jQuery('table#album_images .disable, table#albums_table .disable').live('click', carousel_disable);
 	
 });
 function select_all_images(evt)
