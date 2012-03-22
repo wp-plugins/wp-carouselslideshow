@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Carousel Slideshow
-Version: 3.7
+Version: 3.8
 Plugin URI: http://wpslideshow.com/carousel-slideshow/
 Description: A Gallery Management Plugin
 Author: WP Slideshow
@@ -9,8 +9,8 @@ Author URI: http://wpslideshow.com
 */
 define('CRS_PLUGIN_DIR', dirname(__FILE__));
 define('CRS_PLUGIN_URL', WP_PLUGIN_URL . '/' . basename(CRS_PLUGIN_DIR));
-define('CRS_PLUGIN_UPLOADS_DIR', CRS_PLUGIN_DIR . '/uploads');
-define('CRS_PLUGIN_UPLOADS_URL', CRS_PLUGIN_URL . '/uploads');
+define('CRS_PLUGIN_UPLOADS_DIR', WP_CONTENT_DIR . '/uploads/carousel');
+define('CRS_PLUGIN_UPLOADS_URL', WP_CONTENT_URL . '/uploads/carousel');
 define('CRS_PLUGIN_XML_DIR', CRS_PLUGIN_DIR . '/xml');
 define('CRS_PLUGIN_XML_URL', CRS_PLUGIN_URL . '/xml');
 
@@ -607,10 +607,10 @@ insert xml code part
 	public function deactivate()
 	{
 		global $wpdb;
-		$query = "DROP TABLE {$wpdb->prefix}carousel_albums";
-		$wpdb->query($query);
-		$query = "DROP TABLE {$wpdb->prefix}carousel_images";
-		$wpdb->query($query);
+		//$query = "DROP TABLE {$wpdb->prefix}carousel_albums";
+		//$wpdb->query($query);
+		//$query = "DROP TABLE {$wpdb->prefix}carousel_images";
+		//$wpdb->query($query);
 		delete_option('carousel_settings');
 	}
 	/**
