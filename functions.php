@@ -268,7 +268,7 @@ function display_carousel_gallery($vars)
 			'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0',
 			'width', '".$ops['slideshow_width']."',
 			'height', '".$ops['slideshow_height']."',
-			'src', '".CRS_PLUGIN_URL."/js/wp_carouselslideshow',
+			'src', '".CRS_PLUGIN_URL."/js/carouselslideshow',
 			'quality', 'high',
 			'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
 			'align', 'middle',
@@ -283,7 +283,7 @@ function display_carousel_gallery($vars)
 			'menu', 'true',
 			'allowFullScreen', 'true',
 			'allowScriptAccess','sameDomain',
-			'movie', '".CRS_PLUGIN_URL."/js/wp_carouselslideshow',
+			'movie', '".CRS_PLUGIN_URL."/js/carouselslideshow',
 			'salign', '',
 			'flashVars','dataFile=".CRS_PLUGIN_URL."/xml/$xml_filename'
 			); //end AC code
