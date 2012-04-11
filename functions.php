@@ -132,7 +132,8 @@ function shortcode_display_carousel_gallery($atts)
 							$atts );
 	//extract( $vars );
 	
-	display_carousel_gallery($vars);
+	$ret = display_carousel_gallery($vars);
+	return $ret;
 }
 function display_carousel_gallery($vars)
 {
@@ -256,7 +257,7 @@ function display_carousel_gallery($vars)
 		$xml = fread($fh, filesize(CRS_PLUGIN_XML_DIR . '/' . $xml_filename));
 		fclose($fh);
 		//print "<h3>Getting xml file from cache: $xml_filename</h3>";
-		echo "
+		$ret_str = "
 		<script language=\"javascript\">AC_FL_RunContent = 0;</script>
 <script src=\"".CRS_PLUGIN_URL."/js/AC_RunActiveContent.js\" language=\"javascript\"></script>
 
@@ -292,7 +293,7 @@ function display_carousel_gallery($vars)
 ";
 //echo CRS_PLUGIN_UPLOADS_URL."<hr>";
 //		print $xml;
-		return true;
+		return $ret_str;
 	}
 	return true;
 }

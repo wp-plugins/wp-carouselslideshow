@@ -65,13 +65,13 @@ For working demo : http://wpslideshow.com/carousel-slideshow/
 
 == Screenshots ==
 
-1. screenshot-1.png - Slideshow front end. 
+1. screenshot-1.jpg - Slideshow front end. 
 
 2. screenshot-2.gif - Add new album / category.
 
 3. screenshot-3.gif - Edit image.
 
-4. screenshot-4.png - bulk upload.
+4. screenshot-4.gif - bulk upload.
 
 5. screenshot-5.gif - edit album / category.
 
@@ -100,3 +100,6 @@ Fixed few settings
 
 =3.7=
 Fixed security issues.
+
+=3.9=
+Where ever you place the short code, there only the slider shows. Previously it use to show on top of content.
