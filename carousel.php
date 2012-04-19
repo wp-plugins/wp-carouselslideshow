@@ -100,7 +100,7 @@ class CarouselSideshow
 							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/about.php";'));
 		add_submenu_page('carousel_menu', __('Carousel Slideshow Setting'), __('Settings'), 8, 'carousel_settings', 
 							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/settings.php";'));
-		add_submenu_page('carousel_menu', __('Carousel Slideshow Management'), __('Album Management'), 8, 'carousel_manage', 
+		add_submenu_page('carousel_menu', __('Carousel Slideshow Management'), __('Category Management'), 8, 'carousel_manage', 
 							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/manage.php";'));
 		add_submenu_page('carousel_menu', __('Carousel Slideshow Cache'), __('Delete Cache'), 8, 'carousel_cache', 
 							create_function('', 'require_once CRS_PLUGIN_DIR . "/html/cache.php";'));
