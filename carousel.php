@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Carousel Slideshow
-Version: 3.9
+Version: 3.10
 Plugin URI: http://wpslideshow.com/carousel-slideshow/
 Description: A Gallery Management Plugin
 Author: WP Slideshow
@@ -137,6 +137,9 @@ class CarouselSideshow
 		if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() != 1) {
 			//$album_name = addslashes($album_name);
 			//$album_desc = addslashes($album_desc);
+		} else {
+			$album_name = stripslashes($album_name);
+			$album_desc = stripslashes($album_desc);
 		}
 		$album = null;
 		$album_dir = null;
@@ -286,6 +289,13 @@ insert xml code part
 		$album_id = isset($_REQUEST['album_id']) ? (int)$_REQUEST['album_id'] : null;
 		$title = trim($_REQUEST['image_title']);
 		$desc = isset($_REQUEST['image_description']) ? trim($_REQUEST['image_description']) : '';
+		if (!function_exists('get_magic_quotes_gpc') || get_magic_quotes_gpc() != 1) {
+			//$title = addslashes($title);
+			//$desc = addslashes($desc);
+		} else {
+			$title = stripslashes($title);
+			$desc = stripslashes($desc);
+		}
 		$price = isset($_REQUEST['image_price']) ? trim($_REQUEST['image_price']) : 0;
 		$price = (is_numeric($price)) ? $price : 0;
 		$thumb = isset($_REQUEST['image_thumb']) ? trim($_REQUEST['image_thumb']) : 'generate';
@@ -585,6 +595,15 @@ insert xml code part
 							creation_date datetime,
 							primary key(image_id)
 							)";
+		$query[] = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}carousel_misc(id int not null auto_increment, 
+							ione int, 
+							itwo int,
+							ithree int,
+							txt text,
+							primary key(id)
+							)";
+		$sec_word = md5('r'.rand().'r2'.rand().'t'.time().'r3'.rand().'r4'.rand());
+		$query[] = "INSERT INTO {$wpdb->prefix}carousel_misc (id, ione, itwo, ithree, txt) VALUES (1,1,1,1,'".$sec_word."')";					
 		foreach($query as $q)
 		{
 			$wpdb->query($q);
@@ -611,6 +630,8 @@ insert xml code part
 		//$wpdb->query($query);
 		//$query = "DROP TABLE {$wpdb->prefix}carousel_images";
 		//$wpdb->query($query);
+		$query = "DROP TABLE {$wpdb->prefix}carousel_misc";
+		$wpdb->query($query);
 		delete_option('carousel_settings');
 	}
 	/**

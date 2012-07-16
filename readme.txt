@@ -4,7 +4,7 @@ Contributors: wpslideshow.com
 Author URI: http://wpslideshow.com/carousel-slideshow/
 Tags: carousel slideshow, wp carousel, carousel slider
 Requires at least: 3.0
-Tested up to: 3.3.1
+Tested up to: 3.4.1
 Stable tag: trunk
 
 Carousel slideshow can be shown in the posts using the short code [carousel]. You can display this slideshow multiple instances. It is also possible to display specific categories and images with their ID's in this slideshow.
@@ -103,3 +103,6 @@ Fixed security issues.
 
 =3.9=
 Where ever you place the short code, there only the slider shows. Previously it use to show on top of content.
+
+=3.10=
+Fixed security bugs.
