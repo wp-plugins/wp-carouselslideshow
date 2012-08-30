@@ -72,10 +72,6 @@ global $gcrs;
 			<td><textarea name="image_description"></textarea></td>
 		</tr>
 		<tr>
-			<td><?php _e('Price'); ?></td>
-			<td><input type="text" name="image_price" value="" /></td>
-		</tr>
-		<tr>
 			<td><?php _e('Upload Image'); ?></td>
 			<td><input type="file" name="image_file" value="" /></td>
 		</tr>
@@ -141,12 +137,6 @@ global $gcrs;
 		<input type="hidden" id="view" name="view" value="<?php print $_REQUEST['view']; ?>" />
 		<fieldset>
 			<legend><?php _e('Upload Options'); ?></legend>
-			<table>
-			<tr>
-				<td><?php _e('Price'); ?></td>
-				<td><input type="text" id="multi_image_price" name="image_price" value="" /></td>
-			</tr>
-			</table>
 			<fieldset>
 
 			<div class="fieldset flash" id="fsUploadProgress">
