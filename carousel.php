@@ -669,7 +669,7 @@ insert xml code part
 	{
 		global $wpdb;
 		$image_id = (int)$image_id;
-		$query = "SELECT image_id, category_id, title, description, price, thumb, image, status, `order`, creation_date
+		$query = "SELECT image_id, category_id, title, description, price, thumb, image, status, `order`, link, creation_date
 					FROM {$wpdb->prefix}carousel_images
 					WHERE image_id = $image_id
 					LIMIT 1";
