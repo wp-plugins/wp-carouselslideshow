@@ -193,7 +193,7 @@ function display_carousel_gallery($vars)
 				{
 					if( $img['status'] == 0 ) continue;
 					
-					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"".$ops['target']."\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 
 				}
 			}
@@ -211,7 +211,7 @@ function display_carousel_gallery($vars)
 				$album_dir = carousel_get_album_url($album['album_id']);//CRS_PLUGIN_UPLOADS_URL . '/' . $album['album_id']."_".$album['name'];
 				if( $img['status'] == 0 ) continue;
 				
-				$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+				$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"".$ops['target']."\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 
 			}
 		}
@@ -230,7 +230,7 @@ function display_carousel_gallery($vars)
 				{
 					if($img['status'] == 0 ) continue;
 					
-					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"_blank\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
+					$imageContainer .= "<picture src=\"".str_replace(" ","-",$album_dir)."/big/{$img['image']}\" scale=\"".$ops['picture_scalling']."\"><link target=\"".$ops['target']."\">{$img['link']}</link><description>".($ops['show_desc']=='no'||$img['description']==""?"":$img['description'])."</description></picture>";
 
 				}
 			}
