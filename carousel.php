@@ -15,6 +15,65 @@ define('CRS_PLUGIN_XML_DIR', CRS_PLUGIN_DIR . '/xml');
 define('CRS_PLUGIN_XML_URL', CRS_PLUGIN_URL . '/xml');
 
 require_once CRS_PLUGIN_DIR . '/functions.php';
+
+class CarouselWidget extends WP_Widget
+{
+  function CarouselWidget()
+  {
+    $widget_ops = array('classname' => 'CarouselWidget', 'description' => 'Displays Carousel' );
+    $this->WP_Widget('CarouselWidget', 'Carousel widget', $widget_ops);
+  }
+ 
+  function form($instance)
+  {
+    $instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+    $title = $instance['title'];
+?>
+  <p><label for="<?php echo $this->get_field_id('title'); ?>">Type categories or product id-s, or blank to show all. Example1: cats=2,4,5 Example2: imgs=1,3,19,7 <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p>
+<?php
+  }
+ 
+  function update($new_instance, $old_instance)
+  {
+    $instance = $old_instance;
+    $instance['title'] = $new_instance['title'];
+    return $instance;
+  }
+ 
+  function widget($args, $instance)
+  {
+    extract($args, EXTR_SKIP);
+ 
+    echo $before_widget;
+    $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
+	
+	$vars = array();
+    if (empty($title)) {
+		$vars = array('cats' => '','imgs' => '');
+	} else {
+		$ptr_cats = '#\s*cats\s*=\s*([0123456789, ]+)\s*#';
+		if (preg_match($ptr_cats, $title, $result) > 0) {
+			$vars['cats'] = $result[1];
+		} else {
+			$vars['cats'] = '';
+			$ptr_imgs = '#\s*imgs\s*=\s*([0123456789, ]+)\s*#';
+			if (preg_match($ptr_imgs, $title, $result) > 0) {
+				$vars['imgs'] = $result[1];
+			} else {
+				$vars['imgs'] = '';
+			}
+		}
+	}
+	$ret_html = display_crs_gallery($vars);
+    echo $ret_html;
+ 
+    echo $after_widget;
+  }
+ 
+}
+add_action( 'widgets_init', create_function('', 'return register_widget("CarouselWidget");') );
+
+
 class CarouselSideshow
 {
 	private $errors = array(); 
