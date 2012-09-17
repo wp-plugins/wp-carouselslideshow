@@ -64,7 +64,7 @@ class CarouselWidget extends WP_Widget
 			}
 		}
 	}
-	$ret_html = display_crs_gallery($vars);
+	$ret_html = display_carousel_gallery($vars);
     echo $ret_html;
  
     echo $after_widget;
@@ -452,7 +452,7 @@ insert xml code part
 				move_uploaded_file($_FILES['image_file_thumb']['tmp_name'], $album_dir . '/thumb/' . $tmp_thumb);
 				$thumb_file = wp_unique_filename($album_dir . '/thumb', $_FILES['image_file_thumb']['name']);
 				$thumb_file = image_resize($album_dir . '/thumb/' . $tmp_thumb, 80, 80, false, 'resized');
-				unlink($album_dir . '/' . $tmp_thumb);
+				unlink($album_dir . '/thumb/' . $tmp_thumb);
 			}
 		}
 		//for edit image
