@@ -29,7 +29,7 @@ function carousel_get_def_settings()
 	'min_particle_blur' => '0',
 	'max_particle_blur' => '6',
 	'wmode' => 'opaque',
-	'target' => '_blank'
+	'target' => '_self'
 			);
 	return $carousel_settings;
 }
