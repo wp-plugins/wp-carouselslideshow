@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Carousel Slideshow
-Version: 3.10
+Version: 3.11
 Plugin URI: http://wpslideshow.com/carousel-slideshow/
 Description: A Gallery Management Plugin
 Author: WP Slideshow
