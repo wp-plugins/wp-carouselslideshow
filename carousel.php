@@ -668,15 +668,21 @@ insert xml code part
 			$wpdb->query($q);
 		}
 		//create folders
+		if( !is_dir(WP_CONTENT_DIR.'/uploads') )
+		{
+			mkdir(WP_CONTENT_DIR.'/uploads');
+			chmod(WP_CONTENT_DIR.'/uploads', 0755);					
+		}
+
 		if( !is_dir(CRS_PLUGIN_UPLOADS_DIR) )
 		{
 			mkdir(CRS_PLUGIN_UPLOADS_DIR);
-			chmod(CRS_PLUGIN_UPLOADS_DIR, 0777);					
+			chmod(CRS_PLUGIN_UPLOADS_DIR, 0755);					
 		}
 		if( !is_dir(CRS_PLUGIN_XML_DIR) )
 		{
 			mkdir(CRS_PLUGIN_XML_DIR);
-			chmod(CRS_PLUGIN_XML_DIR, 0777);
+			chmod(CRS_PLUGIN_XML_DIR, 0755);
 		} 
 		$this->def_settings = carousel_get_def_settings();
 		//store default settings
