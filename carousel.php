@@ -90,7 +90,7 @@ class CarouselSideshow
 		$this->add_shortcodes();
 		$this->add_scripts();
 		if( !is_dir(CRS_PLUGIN_UPLOADS_DIR) )
-			$this->errors[] = __('Carousel Slideshow: The uploads dir does not exists, please create it and set write permissions');
+			$this->errors[] = __('Carousel Slideshow: The uploads dir does not exists, please create "carousel" directory under "'.WP_CONTENT_DIR.' /uploads/"');
 		if( is_dir(CRS_PLUGIN_UPLOADS_DIR) && !is_writable(CRS_PLUGIN_UPLOADS_DIR) )
 			$this->errors[] = sprintf(__('Carousel Slideshow: The upload dir "%s" is not writable, please set writte permissions'), CRS_PLUGIN_UPLOADS_DIR);
 		if( !is_dir(CRS_PLUGIN_XML_DIR) )
